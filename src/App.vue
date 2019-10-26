@@ -1,12 +1,24 @@
 <template>
-  <v-app id="app" max-with="700px">
-    <v-app-bar app dark flat class="cyan lighten-3">
-      <v-toolbar-title>Eline Wijns</v-toolbar-title>
+  <v-app id="app">
+    <v-app-bar app flat class>
+      <v-toolbar-title>Calin</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn text to="/">Home</v-btn>
-        <v-btn text to="/blog">Blog</v-btn>
-      </v-toolbar-items>
+      <nav>
+        <ul class="basic-menu clearfix">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/kids">Kids</a>
+          </li>
+          <li>
+            <a href="/blog">Men</a>
+          </li>
+          <li>
+            <a href="/blog">Women</a>
+          </li>
+        </ul>
+      </nav>
     </v-app-bar>
     <v-content>
       <router-view></router-view>
@@ -24,7 +36,5 @@ export default {
 </script>
 
 <style>
-#app {
-  max-width: 2000px;
-}
+@import "./assets/styles/style.css";
 </style>
