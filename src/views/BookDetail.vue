@@ -24,10 +24,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+
 export default {
   computed: {
-    ...mapGetters(["getBookById"]),
+    ...mapGetters(['getBookById']),
     book() {
       return this.getBookById(this.$route.params.bookId);
     }

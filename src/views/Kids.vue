@@ -1,90 +1,63 @@
 <template>
   <v-container>
-    <div class="related-post-area ptb-90">
+    <div class="ptb-90">
       <div class="container">
         <div class="area-title text-center">
           <h2>Related Portfolio</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi tempora veritatis nemo aut ea iusto eos est expedita, quas ab adipisci.</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Sequi tempora veritatis nemo aut ea iusto eos est expedita, quas ab adipisci.
+          </p>
         </div>
       </div>
-      <div id="related-active">
-        <div class="portfolio-item">
-          <div class="portfolio-wrapper">
-            <div class="portfolio-thumb">
-              <img src="assets/img/6.jpg" alt />
-              <div class="view-icon">
-                <a href="portfolio-single.html">
-                  <i class="ion-arrow-right-c"></i>
-                </a>
+      <v-container class="gray-bg pt-8 pb-0">
+        <v-row no-gutters class="row-portfolio portfolio-style-2">
+          <v-flex md4 sm6 xs12 class="portfolio-item" v-for="item in items" v-bind:key="item.name">
+            <div class="portfolio-wrapper" @click="goToDetail(item.name)">
+              <div class="portfolio-thumb">
+                <img src="../assets/img/5.jpg" alt />
+              </div>
+              <div class="portfolio-caption text-left">
+                <div class="work-tag">
+                  <p>{{item.name}}</p>
+                </div>
+                <h6>
+                  <font color="white">{{item.description}}</font>
+                </h6>
               </div>
             </div>
-            <div class="portfolio-caption text-left">
-              <div class="work-tag">
-                <p>Web Design</p>
-              </div>
-              <h4>
-                <a href="portfolio-single.html">Brand Redesign Works</a>
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div class="portfolio-item">
-          <div class="portfolio-wrapper">
-            <div class="portfolio-thumb">
-              <img src="assets/img/6.jpg" alt />
-              <div class="view-icon">
-                <a href="portfolio-single.html">
-                  <i class="ion-arrow-right-c"></i>
-                </a>
-              </div>
-            </div>
-            <div class="portfolio-caption text-left">
-              <div class="work-tag">
-                <p>Web Design</p>
-              </div>
-              <h4>
-                <a href="portfolio-single.html">Brand Redesign Works</a>
-              </h4>
-            </div>
-          </div>
-        </div>
-          <div class="portfolio-wrapper">
-            <div class="portfolio-thumb">
-              <img src="img/portfolio/related/2.jpg" alt />
-              <div class="view-icon">
-                <a href="portfolio-single.html">
-                  <i class="ion-arrow-right-c"></i>
-                </a>
-              </div>
-            </div>
-            <div class="portfolio-caption text-left">
-              <div class="work-tag">
-                <p>Web Design</p>
-              </div>
-              <h4>
-                <a href="portfolio-single.html">Brand Redesign Works</a>
-              </h4>
-            </div>
-          </div>
-        </div>
-      </div>
+          </v-flex>
+        </v-row>
+      </v-container>
     </div>
   </v-container>
 </template>
 
 <script>
-const { db } = require("../fb");
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
+
+const { db } = require('../fb');
+
 export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapState(['items'])
+  },
+  methods: {
+    goToDetail(id) {
+      this.$router.push({ name: 'productDetail', params: { productId: id } });
+    }
+  },
   created() {
-    //this.$store.commit("REFRESH_POSTS");
+    // this.$store.commit("REFRESH_POSTS");
   }
 };
 </script>
 
 <style scoped>
+.portfolio-wrapper {
+  cursor: pointer;
+}
 </style>

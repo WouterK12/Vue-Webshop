@@ -24,16 +24,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   data: () => ({}),
   computed: {
-    ...mapState(["books"])
+    ...mapState(['books'])
   },
   methods: {
     goToDetail(id) {
-      this.$router.push({ name: "bookDetail", params: { bookId: id } });
+      this.$router.push({ name: 'bookDetail', params: { bookId: id } });
     }
   }
 };

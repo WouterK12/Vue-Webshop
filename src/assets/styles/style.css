@@ -1,4 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600,700");
+
 /**MAIN */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+  color: #232332;
+  margin-top: 0px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
 a,
 .button {
   -webkit-transition: all 0.3s ease-out 0s;
@@ -23,6 +40,11 @@ button {
 li {
   list-style: none;
 }
+
+.img,img{
+  max-width: 100%;
+ transition: all 0.3s ease-out 0s;
+ }
 
 /** Button */
 .btn {
@@ -52,18 +74,14 @@ li {
 }
 
 /** Menu */
-.basic-menu {
-  float: right;
-}
+
 .basic-menu li {
   float: left;
   margin-left: 30px;
   position: relative;
   transition: all 0.3s ease 0s;
 }
-.basic-menu > li:last-child:after {
-  display: none;
-}
+
 .basic-menu li a {
   color: #232332;
   display: inline-block;
@@ -130,7 +148,6 @@ li {
 }
 
 /* 4. portfolio */
-.filter-menu{}
 .filter-menu button {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: 0 none;
@@ -145,17 +162,21 @@ li {
   text-transform: uppercase;
   transition: all 0.3s ease 0s;
 }
-.filter-menu button.active , .filter-menu button:hover {color:#111 }
-.row-portfolio{margin:0 -15px}
+.filter-menu button.active,
+.filter-menu button:hover {
+  color: #111;
+}
+.row-portfolio {
+  margin: 0 -15px;
+}
 .row-portfolio .portfolio-item {
   padding: 0 15px;
 }
 .portfolio-wrapper {
   position: relative;
   transition: all 0.3s ease 0s;
-  overflow:hidden
+  overflow: hidden;
 }
-.portfolio-wrapper:hover{}
 .portfolio-item {
   float: left;
   margin-bottom: 30px;
@@ -165,26 +186,26 @@ li {
   width: 100%;
 }
 .portfolio-wrapper:hover .portfolio-thumb img {
-   transform: rotate(-5deg) scale(1.2);
+  transform: rotate(-5deg) scale(1.2);
 }
 .portfolio-thumb {
   position: relative;
 }
 .portfolio-thumb::before {
-	background: #000;
-	content: "";
-	height: 100%;
-	left: 0;
-	opacity: 0;
-	position: absolute;
-	top: 0;
-	transition: all 0.3s ease 0s;
-	width: 100%;
-	z-index: 1;
-	opacity: 0;
+  background: #000;
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: all 0.3s ease 0s;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
 }
 .portfolio-wrapper:hover .portfolio-thumb::before {
-	opacity: .8;
+  opacity: 0.8;
 }
 .view-icon {
   opacity: 0;
@@ -196,7 +217,10 @@ li {
   visibility: hidden;
   z-index: 9;
 }
-.portfolio-wrapper:hover .view-icon{opacity:1;visibility:visible;}
+.portfolio-wrapper:hover .view-icon {
+  opacity: 1;
+  visibility: visible;
+}
 .view-icon > a {
   color: #fff;
   display: inline-block;
@@ -207,11 +231,11 @@ li {
   padding: 15px;
 }
 .portfolio-caption > h4 {
-	font-size: 20px;
-	font-weight: 700;
-	margin: 10px 0;
-	position: relative;
-	margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px 0;
+  position: relative;
+  margin-bottom: 8px;
 }
 .portfolio-caption a {
   color: #fff;
@@ -238,29 +262,32 @@ li {
 }
 /* portfolio style 2 */
 .portfolio-caption {
-	left: 0;
-	opacity: 0;
-	padding: 30px;
-	position: absolute;
-	right: 0;
-	transition: all 0.3s ease 0s;
-	visibility: hidden;
-	z-index: 2;
-	top: 50%;
-	right: 0;
-	text-align: center;
+  left: 0;
+  opacity: 0;
+  padding: 30px;
+  position: absolute;
+  right: 0;
+  transition: all 0.3s ease 0s;
+  visibility: hidden;
+  z-index: 2;
+  top: 50%;
+  right: 0;
+  text-align: center;
 }
-.portfolio-wrapper:hover .portfolio-caption{opacity:1;visibility:visible;transform: translateY(-50%)}
+.portfolio-wrapper:hover .portfolio-caption {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%);
+}
 .portfolio-full .portfolio-item .portfolio-caption {
   padding-right: 100px;
 }
 
-
 /* call to action */
 .call-to-action > h3 {
-	font-weight: 700;
-	letter-spacing: 1.5px;
-	text-transform: capitalize;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: capitalize;
 }
 .call-to-action > p {
   margin: 0;
@@ -269,7 +296,6 @@ li {
   margin-top: 12px;
 }
 /* portfolio-style-3 */
-.portfolio-style-3{}
 .portfolio-style-3 .portfolio-caption {
   bottom: 20px;
   top: inherit;
@@ -278,7 +304,9 @@ li {
   bottom: 0;
   top: inherit;
 }
-.row-portfolio.m-0{margin:0;}
+.row-portfolio.m-0 {
+  margin: 0;
+}
 .portfolio-style-4 .portfolio-thumb::before {
   background: #000 none repeat scroll 0 0;
 }
@@ -296,18 +324,24 @@ li {
   top: inherit;
 }
 .portfolio-style-4 .portfolio-wrapper:hover .portfolio-caption {
-  transform:translateY(50%);
-  bottom:50%;
+  transform: translateY(50%);
+  bottom: 50%;
 }
 .portfolio-grid-2 .portfolio-item {
   width: 50%;
 }
-.portfolio-grid-4 .portfolio-item{width:25%}
-.no-space .portfolio-item{margin-bottom:0;}
-.width-8{width: 66.6667%;}
+.portfolio-grid-4 .portfolio-item {
+  width: 25%;
+}
+.no-space .portfolio-item {
+  margin-bottom: 0;
+}
+.width-8 {
+  width: 66.6667%;
+}
 #related-active .portfolio-item {
   width: 100%;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 #related-active {
   padding: 0 15px;
@@ -315,7 +349,9 @@ li {
 #related-active .portfolio-caption {
   padding: 30px 80px 30px 30px;
 }
-.basic-separator{border-top:1px solid #ddd}
+.basic-separator {
+  border-top: 1px solid #ddd;
+}
 /* portfolio details */
 .portfolio-full-img img {
   width: 100%;
@@ -326,15 +362,14 @@ li {
   letter-spacing: 1px;
   padding: 0 0 10px;
 }
-.portfolio-details{}
 .portfolio-details span {
-	color: #666;
-	display: inline-block;
-	font-size: 11px;
-	font-weight: bold;
-	letter-spacing: 1px;
-	margin: 0;
-	text-transform: uppercase;
+  color: #666;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0;
+  text-transform: uppercase;
 }
 .portfolio-details h2 {
   color: #000;
@@ -348,7 +383,6 @@ li {
   text-transform: capitalize;
   width: 100%;
 }
-.portfolio-details p{}
 /* 5. service */
 .service-box {
   padding: 49px 40px 32px;
@@ -358,14 +392,14 @@ li {
   width: 60%;
 }
 .area-title h2 {
-	display: inline-block;
-	font-size: 28px;
-	font-weight: 700;
-	letter-spacing: 2px;
-	margin-bottom: 20px;
-	padding-bottom: 15px;
-	position: relative;
-	text-transform: uppercase;
+  display: inline-block;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  position: relative;
+  text-transform: uppercase;
 }
 .area-title h2::after {
   background: #444444 none repeat scroll 0 0;
@@ -383,32 +417,29 @@ li {
 .area-title p {
   margin: 0;
 }
-.service-icon {
-}
 .service-icon span {
-	color: #3e3e3e;
-	text-align: center;
-	transition: all 0.4s ease 0s;
-	display: inline-block;
-	font-size: 32px;
-	margin-bottom: 25px;
+  color: #3e3e3e;
+  text-align: center;
+  transition: all 0.4s ease 0s;
+  display: inline-block;
+  font-size: 32px;
+  margin-bottom: 25px;
 }
-.service-content{}
 .service-content h3 {
-	font-size: 15px;
-	font-weight: 600;
-	margin-bottom: 10px;
-	position: relative;
-	padding-bottom: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  position: relative;
+  padding-bottom: 20px;
 }
 .service-content p {
   margin: 0;
 }
 .service-content h3::before {
-	background: #444;
-	height: 2px;
-	width: 40px;
-	content: "";
-	position: absolute;
-	bottom: 0;
+  background: #444;
+  height: 2px;
+  width: 40px;
+  content: "";
+  position: absolute;
+  bottom: 0;
 }
