@@ -1,11 +1,11 @@
 <template>
-  <footer>
-    <div class="basic-footer text-center gray-bg ptb-90">
+  <footer app>
+    <div class="basic-footer text-center gray-bg pt-30">
       <div class="container">
         <div class="footer-logo mb-30">
-          <h3>
-            <a href="/">Calin</a>
-          </h3>
+          <router-link to="/">
+            <img height="35px" src="../assets/logo.png" />
+          </router-link>
         </div>
         <div class="social-icon">
           <a href="#">
@@ -21,20 +21,8 @@
         <div class="footer-menu mt-30">
           <nav>
             <ul>
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">Portfolio</a>
-              </li>
-              <li>
-                <a href="#">About</a>
-              </li>
-              <li>
-                <a href="#">Blog</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
+              <li v-for="link in links" v-bind:key="link.name">
+                <router-link :to="link.location">{{link.name}}</router-link>
               </li>
             </ul>
           </nav>
@@ -48,6 +36,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState(['links'])
+  }
+};
 </script>
 
 <style scoped>

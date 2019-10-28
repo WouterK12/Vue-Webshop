@@ -41,10 +41,18 @@ li {
   list-style: none;
 }
 
-.img,img{
+.img,
+img {
   max-width: 100%;
- transition: all 0.3s ease-out 0s;
- }
+  transition: all 0.3s ease-out 0s;
+}
+p {
+  color: rgb(148, 148, 148);
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 26px;
+  margin-bottom: 5px;
+}
 
 /** Button */
 .btn {
@@ -71,6 +79,34 @@ li {
   background: transparent;
   border-color: #444;
   color: #444 !important;
+}
+
+.btn-light {
+  -moz-user-select: none;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  border-color: #444;
+  color: #444 !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 10px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: all 0.3s ease 0s;
+  vertical-align: middle;
+}
+.btn-light:hover {
+  background: transparent;
+  border-color: #444;
+  color: #fff !important;
+  background: #444 none repeat scroll 0 0;
 }
 
 /** Menu */
@@ -145,6 +181,89 @@ li {
 }
 .basic-menu li ul li a i {
   float: right;
+}
+
+/*Mobile Menu*/
+.basic-menu-mobile li {
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease 0s;
+  margin-top: 15px;
+}
+
+.basic-menu-mobile li a {
+  color: #232332;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  position: relative;
+  text-transform: uppercase;
+}
+.basic-menu-mobile > li > a::before {
+  background: #666666 none repeat scroll 0 0;
+  bottom: 23px;
+  content: "";
+  height: 1px;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  transition: all 0.3s ease 0s;
+  width: 0px;
+}
+.basic-menu-mobile > li > a {
+  padding: 30px 0;
+}
+.basic-menu-mobile li:hover > a {
+  color: #999;
+}
+.basic-menu-mobile li:hover > a:before {
+  opacity: 1;
+  width: 15px;
+}
+.basic-menu-mobile li ul {
+  background: #222 none repeat scroll 0 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  float: none;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  text-align: left;
+  top: 110%;
+  transition: all 0.3s ease 0s;
+  visibility: hidden;
+  width: 200px;
+  z-index: 11;
+}
+.basic-menu-mobile li:hover > ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+.basic-menu-mobile li ul li {
+  border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+  display: block;
+  float: none;
+  margin: 0;
+}
+.basic-menu-mobile li ul li:last-child {
+  border-bottom: 0 none;
+  margin: 0;
+}
+.basic-menu-mobile li ul li a i {
+  float: right;
+}
+
+/*breadcrums*/
+.breadcrumbs {
+  padding: 20px 0px 0px 20px;
+  cursor: pointer;
+  color: rgb(99, 99, 99);
+}
+
+.crumb-item {
+  cursor: default;
 }
 
 /* 4. portfolio */

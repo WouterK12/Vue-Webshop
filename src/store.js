@@ -7,6 +7,29 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    links: [
+      {
+        name: 'home',
+        location: '/'
+      },
+      {
+        name: 'kids',
+        location: '/kids'
+      },
+      {
+        name: 'women',
+        location: '/women'
+      },
+      {
+        name: 'men',
+        location: '/men'
+      },
+      {
+        name: 'misc',
+        location: '/misc'
+      }
+    ],
+
     items: [
       {
         name: 'Relatiegeschenken',
