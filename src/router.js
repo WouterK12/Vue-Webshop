@@ -14,21 +14,32 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/kids',
-      name: 'kids',
+      path: '/clothes',
+      name: 'clothes',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Kids.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/Clothes.vue')
+    },
+    {
+      path: '/misc',
+      name: 'misc',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/Misc.vue')
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/Cart.vue')
     },
     {
       path: '*',
       redirect: '/'
-    },
-    {
-      path: '/books/:bookId',
-      name: 'bookDetail',
-      component: () => import(/* webpackChunkName: "bookDetail" */ './views/BookDetail.vue')
     },
     {
       path: '/product/:productId',

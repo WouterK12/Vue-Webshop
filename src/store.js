@@ -1,7 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import moment from 'moment';
-import db from './fb';
+import Vue from "vue";
+import Vuex from "vuex";
+import { ToastProgrammatic as Toast } from "buefy";
 
 Vue.use(Vuex);
 
@@ -9,88 +8,123 @@ export default new Vuex.Store({
   state: {
     links: [
       {
-        name: 'home',
-        location: '/'
+        name: "home",
+        location: "/"
       },
       {
-        name: 'kids',
-        location: '/kids'
+        name: "clothes",
+        location: "/clothes",
+        description: "Here you can find awesome clothes"
       },
+
       {
-        name: 'women',
-        location: '/women'
-      },
-      {
-        name: 'men',
-        location: '/men'
-      },
-      {
-        name: 'misc',
-        location: '/misc'
+        name: "misc",
+        location: "/misc",
+        description: "Here you can find awesome items"
       }
     ],
-
+    pics: [
+      { src: require("./assets/img/5.jpg") },
+      { src: require("./assets/img/5.jpg") },
+      { src: require("./assets/img/6.jpg") }
+    ],
     items: [
       {
-        name: 'Relatiegeschenken',
-        description: 'Bags, kledij, hamamdoeken, sleutelhangers'
+        name: "Ball",
+        description: "The greatest ball ever",
+        price: "10.99",
+        id: 1,
+        category: "misc"
       },
       {
-        name: 'Andere',
-        description: 'Metalen doosjes, Theelichtjes, armbanden'
+        name: "Bag",
+        id: 2,
+        description: "The greatest bag ever",
+        price: "24.99",
+        category: "misc",
+        versions: {
+          colors: ["green", "blue", "red", "black"]
+        }
       },
       {
-        name: 'Textiel',
-        description: 'Keukenhanddoeken, keukenschorten'
+        name: "T-shirt",
+        id: 3,
+        description: "The most awesome T-shirt ever made",
+        price: "15.99",
+        category: "clothes",
+        versions: {
+          sizes: ["xs", "s", "m", "l", "xl"],
+          colors: ["green", "blue", "red", "black"]
+        }
       },
       {
-        name: 'Bags',
-        description:
-          'Sportzakken , rugzakken, Toiletzakken, linnen zakken, knikkerzakken en nog veel meer'
+        name: "Black Sweater",
+        id: 4,
+        description: "Supersoft sweater that is just amazing, only available in black",
+        price: "59.99",
+        category: "clothes",
+        versions: {
+          sizes: ["s", "m", "l", "xl", "xxl"]
+        }
       },
       {
-        name: 'Baby & Kids',
-        description:
-          'Badjassen, Handdoeken , Washandjes, slabben, linnenzakken, kaphanddoeken , jumpsuits, keukenshort'
+        name: "Watch",
+        id: 5,
+        description: "The nicest watch you wish your grandfater gave you",
+        price: "99.99",
+        category: "misc"
       },
       {
-        name: 'Badlinnen',
-        description: 'Badjassen, Handdoeken en Washandjes'
+        name: "Mug",
+        id: 6,
+        description: "Best. Mug. Ever",
+        price: "5.99",
+        category: "misc"
+      },
+      {
+        name: "Cool Sticker",
+        id: 7,
+        description: "Just a cool sticker, nothing more to tell you about it",
+        price: "3.99",
+        category: "misc"
+      },
+      {
+        name: "Cooler Sticker",
+        id: 8,
+        description: "This ones' cooler than the other one",
+        price: "4.99",
+        category: "misc"
+      },
+      {
+        name: "Coaster",
+        id: 9,
+        description: "Everybody knows what a coaster is I guess",
+        price: "2.99",
+        category: "misc"
       }
     ],
     cart: [],
     whishlist: []
   },
   mutations: {
-    REFRESH_POSTS(state) {
-      state.posts = [];
-      db.collection('posts')
-        .orderBy('Timestamp', 'desc')
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const post = {
-              ...doc.data(),
-              id: doc.id
-            };
-            const time = new Date(post.Timestamp.seconds * 1000);
-            post.Timestamp = moment(time)
-              .locale('nl')
-              .format('llll');
-            state.posts.push(post);
-          });
-        });
+    ADD_TO_CART(state, payload) {
+      const el = state.cart.find(el => el.id === payload);
+      if (el) {
+        el.quantity += 1;
+      } else {
+        state.cart.push({ id: payload, quantity: 1 });
+      }
+
+      Toast.open({
+        message: "Item added successfully!",
+        type: "is-success"
+      });
     }
   },
   getters: {
-    getBookById: state => (id) => {
-      // eslint-disable-next-line no-param-reassign
-      id = parseInt(id, 0); // id from route is string && not int
-      return state.books.find(book => book.id === id);
-    },
-    getProductById: state => (id) => {
-      // eslint-disable-next-line no-param-reassign
-      state.items.find(item => item.name === id);
-    }
+    getProductById: state => id => state.items.find(item => item.id == id),
+    getPageInfoByName: state => name => state.links.find(link => link.name === name),
+    getProductPictures: state => () => state.pics, // some functions to fetch the products pictures
+    getCartItems: state => () => state.cart
   }
 });

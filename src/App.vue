@@ -9,24 +9,37 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>
           <router-link to="/">
-            <h3>Calin</h3>
+            <h3>Vueshop</h3>
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <nav v-if="$vuetify.breakpoint.mdAndUp">
-          <ul class="basic-menu clearfix">
+          <ul class="basic-menu">
             <li v-for="link in links" v-bind:key="link.name">
               <router-link :to="link.location">{{link.name}}</router-link>
             </li>
             <li>
-              <a style="margin-top: 25px; padding: 0;">
-                <i style="font-size: 20px;" class="ion-ios-cart icons"></i>
-              </a>
+              <router-link to="/cart" style="padding-top: 26px; padding-bottom:25px;">
+                <v-badges color="green">
+                  <template v-slot:badge>
+                    <span v-if="cart.length > 0">{{ cart.length }}</span>
+                  </template>
+                  <i style="font-size: 20px;" class="ion-ios-cart icons"></i>
+                </v-badges>
+              </router-link>
             </li>
           </ul>
         </nav>
         <nav v-else>
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <div
+            class="hamburger hamburger--spin"
+            @click="drawer = !drawer"
+            :class="drawer ? 'is-active' : ''"
+          >
+            <div class="hamburger-box">
+              <div class="hamburger-inner"></div>
+            </div>
+          </div>
         </nav>
       </v-app-bar>
       <v-navigation-drawer v-if="$vuetify.breakpoint.mdAndDown" app v-model="drawer" bottom>
@@ -37,9 +50,9 @@
                 <router-link :to="link.location">{{link.name}}</router-link>
               </li>
               <li>
-                <a style="margin-top: 25px; padding: 0;">
+                <router-link to="/cart">
                   <i style="font-size: 30px;" class="ion-ios-cart icons"></i>
-                </a>
+                </router-link>
               </li>
             </ul>
           </v-list-item-group>
@@ -67,7 +80,8 @@ export default {
   data: () => ({
     fab: false,
     drawer: false,
-    group: null
+    group: null,
+    hamburger: false
   }),
   watch: {
     group() {
@@ -85,7 +99,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['links'])
+    ...mapState(['links', 'cart'])
   },
   components: { Footer }
 };
@@ -94,4 +108,14 @@ export default {
 <style>
 @import "./assets/styles/style.css";
 @import "./assets/styles/global.css";
+</style>
+
+<style lang="scss">
+$hamburger-layer-width: 30px;
+$hamburger-layer-height: 2px;
+$hamburger-layer-spacing: 6px;
+$hamburger-layer-color: #444;
+$hamburger-hover-opacity: 0.4;
+
+@import "./node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
 </style>

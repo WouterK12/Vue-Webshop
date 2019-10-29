@@ -2,7 +2,7 @@
   <v-container class="pt-8 pb-0">
     <v-row no-gutters class="row-portfolio portfolio-style-2">
       <v-flex md4 sm6 xs12 class="portfolio-item" v-for="item in items" v-bind:key="item.name">
-        <div class="portfolio-wrapper" @click="goToDetail(item.name)">
+        <div class="portfolio-wrapper" @click="goToDetail(item.id)">
           <div class="portfolio-thumb">
             <img src="../assets/img/5.jpg" alt />
           </div>

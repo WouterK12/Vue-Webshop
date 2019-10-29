@@ -3,11 +3,8 @@
     <div class="ptb-90">
       <div class="container">
         <div class="area-title text-center">
-          <h2>Related Portfolio</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Sequi tempora veritatis nemo aut ea iusto eos est expedita, quas ab adipisci.
-          </p>
+          <h2>{{page.name}}</h2>
+          <p>{{page.description}}</p>
         </div>
       </div>
       <Catalog />
@@ -16,11 +13,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Catalog from '../components/Catalog.vue';
 
 export default {
-  data() {
-    return {};
+  computed: {
+    ...mapGetters(['getPageInfoByName']),
+    page() {
+      return this.getPageInfoByName(this.$route.name);
+    }
   },
   components: { Catalog }
 };

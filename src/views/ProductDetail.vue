@@ -2,7 +2,7 @@
   <div
     class="mx-auto"
     :class="$vuetify.breakpoint.mdAndUp ? 'ptb-90' : 'pt-5 gray-bg'"
-     :style="$vuetify.breakpoint.lgAndDown ? 'max-width:900px' : 'max-width: 1500px'"
+    :style="$vuetify.breakpoint.lgAndDown ? 'max-width:900px' : 'max-width: 1500px'"
   >
     <v-row>
       <v-flex lg5 md6 sm6 xs10 xl4 mx-auto>
@@ -24,28 +24,53 @@
       <v-flex lg7>
         <v-card class="mh" flat height="100%" style="border-radius:0px">
           <div class="breadcrumbs">
-            Product /
-            <span class="crumb-item grey--text text--lighten-1">bag</span>
+            <router-link :to="'/'+product.category">
+              <h4 class>
+                {{`${product.category} / `}}
+                <span
+                  class="crumb-item grey--text text--lighten-1"
+                >{{product.name}}</span>
+              </h4>
+            </router-link>
           </div>
           <v-container>
             <v-layout row wrap align-center>
               <v-flex class="detail-container">
-                <h1>Bag</h1>
+                <h1>{{product.name}}</h1>
                 <br />
-                <h4>€ 50.00</h4>
+                <h4>€ {{product.price}}</h4>
               </v-flex>
             </v-layout>
           </v-container>
-          <v-container class="size-buttons">
+          <v-container v-if="product.versions && product.versions.sizes" class="size-buttons">
             <v-layout row wrap align-center>
               <v-flex class="text-center">
                 <p style="margin-left: 30px;" class="text-left">Select Size</p>
                 <div id="sizes">
-                  <a id="xs" class="size-btn" v-on:click="selectSize('xs')">xs</a>
-                  <a id="s" class="size-btn" v-on:click="selectSize('s')">s</a>
-                  <a id="m" class="size-btn" v-on:click="selectSize('m')">m</a>
-                  <a id="l" class="size-btn" v-on:click="selectSize('l')">l</a>
-                  <a id="xl" class="size-btn" v-on:click="selectSize('xl')">xl</a>
+                  <a
+                    v-for="(size, i) in product.versions.sizes"
+                    v-bind:key="i"
+                    :id="size"
+                    class="size-btn"
+                    v-on:click="selectSize(`${size}`)"
+                  >{{size}}</a>
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <v-container v-if="product.versions && product.versions.colors" class="size-buttons">
+            <v-layout row wrap align-center>
+              <v-flex class="text-center">
+                <p style="margin-left: 30px; margin-bottom: 0px;" class="text-left">Select Color</p>
+                <div id="colors">
+                  <a
+                    v-for="(color, i) in product.versions.colors"
+                    v-bind:key="i"
+                    :id="color"
+                    :class="'product-'+color"
+                    class="color-btn"
+                    v-on:click="selectColor(`${color}`)"
+                  >{{color}}</a>
                 </div>
               </v-flex>
             </v-layout>
@@ -53,7 +78,7 @@
           <v-container class="action-buttons">
             <v-layout row wrap align-center>
               <v-flex class="text-center">
-                <a class="btn">
+                <a class="btn" v-on:click="addToCart(product.id)">
                   Add To Card
                   <i class="ml-3 ion-ios-cart-outline icons"></i>
                 </a>
@@ -66,10 +91,7 @@
           </v-container>
           <v-container class="product-description">
             <h4 class="grey--text text--lighten-1">Product Details</h4>
-            <div style="max-width: 460px;">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
+            <div style="max-width: 460px;">{{product.description}}</div>
           </v-container>
         </v-card>
       </v-flex>
@@ -81,19 +103,18 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  // computed: {
-  //   ...mapGetters(["getProductById"]),
-  //   item() {
-  //     return this.getProductById(this.$route.params.productId);
-  //   }
-  // }
+  computed: {
+    ...mapGetters(['getProductById']),
+    product() {
+      return this.getProductById(this.$route.params.productId);
+    },
+    pics() {
+      return this.$store.getters.getProductPictures();
+      // doesnt work for some reason if I add it to mapGetters array??
+    }
+  },
   data: () => ({
-    model: 0,
-    pics: [
-      { src: require('../assets/img/5.jpg') },
-      { src: require('../assets/img/5.jpg') },
-      { src: require('../assets/img/6.jpg') }
-    ]
+    model: 0
   }),
   methods: {
     resetSelected() {
@@ -103,10 +124,26 @@ export default {
     selectSize(size) {
       this.resetSelected();
       document.getElementById(size).classList.add('size-selected');
+    },
+    resetSelectedColors() {
+      const childs = document.getElementById('colors').childNodes;
+      childs.forEach(el => el.classList.remove(`product-${el.id}-selected`));
+    },
+    selectColor(color) {
+      this.resetSelectedColors();
+      document.getElementById(color).classList.add(`product-${color}-selected`);
+    },
+    addToCart(id) {
+      this.$store.commit('ADD_TO_CART', id);
     }
   },
   mounted() {
-    this.selectSize('xs');
+    if (this.product.versions.sizes) {
+      this.selectSize(this.product.versions.sizes[0]);
+    }
+    if (this.product.versions.colors) {
+      this.selectColor(this.product.versions.colors[0]);
+    }
   }
 };
 </script>
@@ -118,6 +155,9 @@ export default {
   }
   .size-buttons a {
     padding: 7px 20px 7px 20px;
+  }
+  .color-btn {
+    padding: 5px 13px 5px 13px !important;
   }
   .action-buttons {
     padding-top: 20px;
@@ -209,5 +249,65 @@ export default {
 .size-selected {
   border-color: #444;
   color: #444 !important;
+}
+
+.color-btn {
+  -moz-user-select: none;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 10px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: all 0.3s ease 0s;
+  vertical-align: middle;
+}
+
+.product-green {
+  color: hsl(171, 100%, 41%) !important;
+  border-color: hsl(171, 100%, 41%);
+}
+.product-green-selected,
+.product-green:hover {
+  background-color: hsl(171, 100%, 41%) !important;
+  color: #fff !important;
+}
+.product-red {
+  color: hsl(348, 100%, 61%) !important;
+  border-color: hsl(348, 100%, 61%);
+}
+.product-red-selected,
+.product-red:hover {
+  background-color: hsl(348, 100%, 61%);
+  color: #fff !important;
+}
+
+.product-blue {
+  color: hsl(204, 86%, 53%) !important;
+  border-color: hsl(204, 86%, 53%);
+}
+.product-blue-selected,
+.product-blue:hover {
+  background-color: hsl(204, 86%, 53%);
+  color: #fff !important;
+}
+
+.product-black {
+  color: hsl(0, 0%, 21%) !important;
+  border-color: hsl(0, 0%, 21%);
+}
+
+.product-black-selected,
+.product-black:hover {
+  background-color: hsl(0, 0%, 21%);
+  color: #fff !important;
 }
 </style>

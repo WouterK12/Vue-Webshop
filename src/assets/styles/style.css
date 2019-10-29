@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600,700");
 
+
 /**MAIN */
 h1,
 h2,
@@ -175,10 +176,7 @@ p {
   float: none;
   margin: 0;
 }
-.basic-menu li ul li:last-child {
-  border-bottom: 0 none;
-  margin: 0;
-}
+
 .basic-menu li ul li a i {
   float: right;
 }
@@ -379,7 +377,7 @@ p {
 .caption-border {
   border: 1px solid #f6f6f6;
 }
-/* portfolio style 2 */
+/* portfolio style */
 .portfolio-caption {
   left: 0;
   opacity: 0;
@@ -401,115 +399,8 @@ p {
 .portfolio-full .portfolio-item .portfolio-caption {
   padding-right: 100px;
 }
-
-/* call to action */
-.call-to-action > h3 {
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: capitalize;
-}
-.call-to-action > p {
-  margin: 0;
-}
-.call-to-action a {
-  margin-top: 12px;
-}
-/* portfolio-style-3 */
-.portfolio-style-3 .portfolio-caption {
-  bottom: 20px;
-  top: inherit;
-}
-.portfolio-style-3 .portfolio-wrapper:hover .portfolio-caption {
-  bottom: 0;
-  top: inherit;
-}
-.row-portfolio.m-0 {
-  margin: 0;
-}
-.portfolio-style-4 .portfolio-thumb::before {
-  background: #000 none repeat scroll 0 0;
-}
-.portfolio-style-4 .portfolio-wrapper:hover .portfolio-thumb::before {
-  opacity: 0.7;
-}
-.portfolio-style-4 .portfolio-caption > h4 {
-  color: #fff;
-}
-.portfolio-style-4 .work-tag > a {
-  color: #fff;
-}
-.portfolio-style-4 .portfolio-caption {
-  bottom: 50%;
-  top: inherit;
-}
-.portfolio-style-4 .portfolio-wrapper:hover .portfolio-caption {
-  transform: translateY(50%);
-  bottom: 50%;
-}
-.portfolio-grid-2 .portfolio-item {
-  width: 50%;
-}
-.portfolio-grid-4 .portfolio-item {
-  width: 25%;
-}
-.no-space .portfolio-item {
-  margin-bottom: 0;
-}
-.width-8 {
-  width: 66.6667%;
-}
-#related-active .portfolio-item {
-  width: 100%;
-  margin-bottom: 0;
-}
-#related-active {
-  padding: 0 15px;
-}
-#related-active .portfolio-caption {
-  padding: 30px 80px 30px 30px;
-}
-.basic-separator {
-  border-top: 1px solid #ddd;
-}
-/* portfolio details */
-.portfolio-full-img img {
-  width: 100%;
-}
-.project-details li {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  padding: 0 0 10px;
-}
-.portfolio-details span {
-  color: #666;
-  display: inline-block;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin: 0;
-  text-transform: uppercase;
-}
-.portfolio-details h2 {
-  color: #000;
-  display: inline-block;
-  float: left;
-  font-size: 35px;
-  font-weight: bold;
-  line-height: 40px;
-  margin: 15px 0 25px;
-  padding: 0 35px 0 0;
-  text-transform: capitalize;
-  width: 100%;
-}
 /* 5. service */
-.service-box {
-  padding: 49px 40px 32px;
-}
-.area-title {
-  margin: 0 auto 60px;
-  width: 60%;
-}
+
 .area-title h2 {
   display: inline-block;
   font-size: 28px;
@@ -535,30 +426,4 @@ p {
 }
 .area-title p {
   margin: 0;
-}
-.service-icon span {
-  color: #3e3e3e;
-  text-align: center;
-  transition: all 0.4s ease 0s;
-  display: inline-block;
-  font-size: 32px;
-  margin-bottom: 25px;
-}
-.service-content h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  position: relative;
-  padding-bottom: 20px;
-}
-.service-content p {
-  margin: 0;
-}
-.service-content h3::before {
-  background: #444;
-  height: 2px;
-  width: 40px;
-  content: "";
-  position: absolute;
-  bottom: 0;
 }

@@ -4,7 +4,7 @@
       <div class="container">
         <div class="footer-logo mb-30">
           <router-link to="/">
-            <img height="35px" src="../assets/logo.png" />
+             <h3>Vueshop</h3>
           </router-link>
         </div>
         <div class="social-icon">
