@@ -39,4 +39,5 @@ export default {
 <style>
 @import "./assets/styles/style.css";
 @import "./assets/styles/global.css";
+@import "./assets/styles/colors.css";
 </style>

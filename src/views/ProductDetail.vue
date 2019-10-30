@@ -63,7 +63,7 @@
             <v-container v-if="product.versions && product.versions.colors" class="size-buttons">
               <v-layout row wrap align-center>
                 <v-flex class="text-center">
-                  <p style="margin-left: 30px; margin-bottom: 0px;" class="text-left">Select Color</p>
+                  <p style="margin: 0px 0px 10px 30px;" class="text-left">Select Color</p>
                   <div id="colors">
                     <a
                       v-for="(color, i) in product.versions.colors"
@@ -303,6 +303,8 @@ export default {
   transition: all 0.3s ease 0s;
   vertical-align: middle;
 }
+
+/*COLORS   DON'T WORK WHEN NOT HERE??? NOT SURE WHY*/
 
 .product-green {
   color: hsl(171, 100%, 41%) !important;

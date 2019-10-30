@@ -8,10 +8,6 @@ export default new Vuetify({
     iconfont: 'mdi'
   },
   theme: {
-    primary: '#444444',
-    product_red: '#444444',
-    product_green: '#b0bec5',
-    product_blue: 'hsl(204, 86%, 53%)',
-    product_black: 'hsl(0, 0%, 21%)'
+    primary: '#444444'
   }
 });

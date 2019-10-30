@@ -116,11 +116,18 @@ export default new Vuex.Store({
         item.quantity += 1;
         item.price = payload.price * item.quantity;
       } else {
-        state.cart.push({ ...payload, quantity: 1 });
+        state.cart.push({ ...payload, quantity: 1, cart_id: Math.floor(Math.random() * 10000) });
       }
 
       Toast.open({
         message: 'Item added successfully!',
+        type: 'is-success'
+      });
+    },
+    REMOVE_FROM_CART(state, payload) {
+      state.cart = state.cart.filter(el => el.cart_id !== payload.cart_id);
+      Toast.open({
+        message: 'Item removed successfully!',
         type: 'is-success'
       });
     }

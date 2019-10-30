@@ -10,6 +10,8 @@
     <div
       class="mx-auto"
       :style="$vuetify.breakpoint.lgAndDown ? 'max-width:900px' : 'max-width: 1500px'"
+      v-for="(item, i) in cart"
+      v-bind:key="i"
     >
       <v-divider></v-divider>
       <v-row>
@@ -24,31 +26,40 @@
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex md7>
-          <v-card flat>
-            <div class="item-details">
-              <h1 style="font-size: 30px;">Bag</h1>
-              <div>
-                <h4 class="font-size: 20px; mt-4">€ 50.00</h4>
-                <div class="mt-5">
-                  <p>Quantity: 1</p>
-                  <p>
-                    Color:
-                    <span class="product_green">a</span>
-                  </p>
+          <v-row>
+            <v-col md="5" sm="10" cols="12">
+              <v-card flat>
+                <div class="item-details">
+                  <h1 style="font-size: 30px;">{{item.name}}</h1>
+                  <h4 class="font-size: 20px; mt-4">€ {{item.price}}</h4>
+                  <div class="mt-5">
+                    <p>Quantity: {{item.quantity}}</p>
+                    <p v-if="item.size">Size: {{item.size}}</p>
+                    <p v-if="item.color">
+                      Color:
+                      <v-chip small class="ma-2" :class="`product-${item.color}-selected`"></v-chip>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <v-card-actions mx-auto class="mx-auto justify-center">
-              <a class="btn-light remove-btn" @click="removeItem()">remove</a>
-            </v-card-actions>
-          </v-card>
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-layout align-center fill-height>
+                <v-flex>
+                  <v-card flat>
+                    <v-card-actions class="justify-center">
+                      <a class="btn-light remove-btn" @click="removeItem(item)">remove</a>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-col>
+          </v-row>
         </v-flex>
       </v-row>
-
-      <v-divider></v-divider>
     </div>
     <v-row>
-      <div class="mx-auto">
+      <div class="mx-auto mtb-90">
         <v-container>
           <a class="btn checkout-btn">
             Check out
@@ -61,16 +72,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(["getCartItems", "getCartItemPic"]),
+    ...mapGetters(['getCartItems', 'getCartItemPic']),
     cart() {
       return this.getCartItems();
     },
     pic() {
       return this.getCartItemPic();
+    }
+  },
+  methods: {
+    removeItem(item) {
+      this.$store.commit('REMOVE_FROM_CART', item);
     }
   }
 };

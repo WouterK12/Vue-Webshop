@@ -1,0 +1,39 @@
+.product-green {
+  color: hsl(171, 100%, 41%) !important;
+  border-color: hsl(171, 100%, 41%);
+}
+.product-green-selected,
+.product-green:hover {
+  background-color: hsl(171, 100%, 41%) !important;
+  color: #fff !important;
+}
+.product-red {
+  color: hsl(348, 100%, 61%) !important;
+  border-color: hsl(348, 100%, 61%);
+}
+.product-red-selected,
+.product-red:hover {
+  background-color: hsl(348, 100%, 61%) !important;
+  color: #fff !important;
+}
+
+.product-blue {
+  color: hsl(204, 86%, 53%) !important;
+  border-color: hsl(204, 86%, 53%);
+}
+.product-blue-selected,
+.product-blue:hover {
+  background-color: hsl(204, 86%, 53%) !important;
+  color: #fff !important;
+}
+
+.product-black {
+  color: hsl(0, 0%, 21%) !important;
+  border-color: hsl(0, 0%, 21%);
+}
+
+.product-black-selected,
+.product-black:hover {
+  background-color: hsl(0, 0%, 21%) !important;
+  color: #fff !important;
+}
