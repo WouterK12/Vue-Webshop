@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600,700");
 
-
 /**MAIN */
 h1,
 h2,
@@ -57,7 +56,12 @@ p {
 
 /** Button */
 .btn {
-  -moz-user-select: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
   background: #444 none repeat scroll 0 0;
   border: 1px solid transparent;
   border-radius: 2px;
@@ -83,7 +87,12 @@ p {
 }
 
 .btn-light {
-  -moz-user-select: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
   background: #fff none repeat scroll 0 0;
   border: 1px solid transparent;
   border-radius: 2px;
@@ -111,6 +120,11 @@ p {
 }
 
 /** Menu */
+.basic-menu {
+  justify-content: end !important;
+  align-content: end !important;
+  text-align: end !important;
+}
 
 .basic-menu li {
   float: left;
@@ -154,10 +168,8 @@ p {
 .basic-menu li ul {
   background: #222 none repeat scroll 0 0;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
-  float: none;
   left: 0;
   opacity: 0;
-  position: absolute;
   text-align: left;
   top: 110%;
   transition: all 0.3s ease 0s;

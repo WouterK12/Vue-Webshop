@@ -1,6 +1,7 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { ToastProgrammatic as Toast } from "buefy";
+/* eslint-disable global-require */
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { ToastProgrammatic as Toast } from 'buefy';
 
 Vue.use(Vuex);
 
@@ -8,99 +9,99 @@ export default new Vuex.Store({
   state: {
     links: [
       {
-        name: "home",
-        location: "/"
+        name: 'home',
+        location: '/'
       },
       {
-        name: "clothes",
-        location: "/clothes",
-        description: "Here you can find awesome clothes"
+        name: 'clothes',
+        location: '/clothes',
+        description: 'Here you can find awesome clothes'
       },
 
       {
-        name: "misc",
-        location: "/misc",
-        description: "Here you can find awesome items"
+        name: 'misc',
+        location: '/misc',
+        description: 'Here you can find awesome items'
       }
     ],
     pics: [
-      { src: require("./assets/img/5.jpg") },
-      { src: require("./assets/img/5.jpg") },
-      { src: require("./assets/img/6.jpg") }
+      { src: require('./assets/img/5.jpg') },
+      { src: require('./assets/img/5.jpg') },
+      { src: require('./assets/img/6.jpg') }
     ],
     items: [
       {
-        name: "Ball",
-        description: "The greatest ball ever",
-        price: "10.99",
+        name: 'Ball',
+        description: 'The greatest ball ever',
+        price: '10.99',
         id: 1,
-        category: "misc"
+        category: 'misc'
       },
       {
-        name: "Bag",
+        name: 'Bag',
         id: 2,
-        description: "The greatest bag ever",
-        price: "24.99",
-        category: "misc",
+        description: 'The greatest bag ever',
+        price: '24.99',
+        category: 'misc',
         versions: {
-          colors: ["green", "blue", "red", "black"]
+          colors: ['green', 'blue', 'red', 'black']
         }
       },
       {
-        name: "T-shirt",
+        name: 'T-shirt',
         id: 3,
-        description: "The most awesome T-shirt ever made",
-        price: "15.99",
-        category: "clothes",
+        description: 'The most awesome T-shirt ever made',
+        price: '15.99',
+        category: 'clothes',
         versions: {
-          sizes: ["xs", "s", "m", "l", "xl"],
-          colors: ["green", "blue", "red", "black"]
+          sizes: ['xs', 's', 'm', 'l', 'xl'],
+          colors: ['green', 'blue', 'red', 'black']
         }
       },
       {
-        name: "Black Sweater",
+        name: 'Black Sweater',
         id: 4,
-        description: "Supersoft sweater that is just amazing, only available in black",
-        price: "59.99",
-        category: "clothes",
+        description: 'Supersoft sweater that is just amazing, only available in black',
+        price: '59.99',
+        category: 'clothes',
         versions: {
-          sizes: ["s", "m", "l", "xl", "xxl"]
+          sizes: ['s', 'm', 'l', 'xl', 'xxl']
         }
       },
       {
-        name: "Watch",
+        name: 'Watch',
         id: 5,
-        description: "The nicest watch you wish your grandfater gave you",
-        price: "99.99",
-        category: "misc"
+        description: 'The nicest watch you wish your grandfater gave you',
+        price: '99.99',
+        category: 'misc'
       },
       {
-        name: "Mug",
+        name: 'Mug',
         id: 6,
-        description: "Best. Mug. Ever",
-        price: "5.99",
-        category: "misc"
+        description: 'Best. Mug. Ever',
+        price: '5.99',
+        category: 'misc'
       },
       {
-        name: "Cool Sticker",
+        name: 'Cool Sticker',
         id: 7,
-        description: "Just a cool sticker, nothing more to tell you about it",
-        price: "3.99",
-        category: "misc"
+        description: 'Just a cool sticker, nothing more to tell you about it',
+        price: '3.99',
+        category: 'misc'
       },
       {
-        name: "Cooler Sticker",
+        name: 'Cooler Sticker',
         id: 8,
         description: "This ones' cooler than the other one",
-        price: "4.99",
-        category: "misc"
+        price: '4.99',
+        category: 'misc'
       },
       {
-        name: "Coaster",
+        name: 'Coaster',
         id: 9,
-        description: "Everybody knows what a coaster is I guess",
-        price: "2.99",
-        category: "misc"
+        description: 'Everybody knows what a coaster is I guess',
+        price: '2.99',
+        category: 'misc'
       }
     ],
     cart: [],
@@ -108,23 +109,27 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_TO_CART(state, payload) {
-      const el = state.cart.find(el => el.id === payload);
-      if (el) {
-        el.quantity += 1;
+      const item = state.cart.find(
+        el => el.id === payload.id && el.color === payload.color && el.size === payload.size
+      );
+      if (item) {
+        item.quantity += 1;
+        item.price = payload.price * item.quantity;
       } else {
-        state.cart.push({ id: payload, quantity: 1 });
+        state.cart.push({ ...payload, quantity: 1 });
       }
 
       Toast.open({
-        message: "Item added successfully!",
-        type: "is-success"
+        message: 'Item added successfully!',
+        type: 'is-success'
       });
     }
   },
   getters: {
-    getProductById: state => id => state.items.find(item => item.id == id),
+    getProductById: state => id => state.items.find(item => item.id === Number(id)),
     getPageInfoByName: state => name => state.links.find(link => link.name === name),
     getProductPictures: state => () => state.pics, // some functions to fetch the products pictures
-    getCartItems: state => () => state.cart
+    getCartItems: state => () => state.cart,
+    getCartItemPic: state => () => state.pics[0]
   }
 });
