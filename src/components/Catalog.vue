@@ -5,6 +5,7 @@
         <div class="portfolio-wrapper" @click="goToDetail(item.id)">
           <div class="portfolio-thumb">
             <img src="../assets/img/5.jpg" alt />
+         
           </div>
           <div class="portfolio-caption text-left">
             <div class="work-tag">

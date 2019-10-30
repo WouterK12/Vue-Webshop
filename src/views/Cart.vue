@@ -14,6 +14,7 @@
       v-bind:key="i"
     >
       <v-divider></v-divider>
+
       <v-row>
         <v-flex lg2 md3 xl2 sm3 xs12>
           <v-card
@@ -30,7 +31,9 @@
             <v-col md="5" sm="10" cols="12">
               <v-card flat>
                 <div class="item-details">
-                  <h1 style="font-size: 30px;">{{item.name}}</h1>
+                  <router-link :to="'/product/'+item.id">
+                    <h1 style="font-size: 30px;">{{item.name}}</h1>
+                  </router-link>
                   <h4 class="font-size: 20px; mt-4">€ {{item.price}}</h4>
                   <div class="mt-5">
                     <p>Quantity: {{item.quantity}}</p>
@@ -58,14 +61,26 @@
         </v-flex>
       </v-row>
     </div>
+
     <v-row>
-      <div class="mx-auto mtb-90">
-        <v-container>
-          <a class="btn checkout-btn">
-            Check out
-            <i style="font-size: 15px; margin-left: 15px;" class="ion-ios-arrow-forward"></i>
-          </a>
-        </v-container>
+      <div
+        class="mx-auto mtb-90"
+        :style="$vuetify.breakpoint.mdAndDown ? 'width:70%' : 'width: 40%'"
+      >
+        <v-row align="center" justify="center">
+          <v-col>
+            <h3 style="font-size: 20px;">
+              Total:
+              <span style="font-weight: 600; margin-left: 15px;">€ {{total}}</span>
+            </h3>
+          </v-col>
+          <v-col>
+            <a class="btn checkout-btn">
+              Check out
+              <i style="font-size: 15px; margin-left: 15px;" class="ion-ios-arrow-forward"></i>
+            </a>
+          </v-col>
+        </v-row>
       </div>
     </v-row>
   </v-container>
@@ -76,12 +91,15 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['getCartItems', 'getCartItemPic']),
+    ...mapGetters(['getCartItems', 'getCartItemPic', 'getCartTotal']),
     cart() {
       return this.getCartItems();
     },
     pic() {
       return this.getCartItemPic();
+    },
+    total() {
+      return this.getCartTotal();
     }
   },
   methods: {
