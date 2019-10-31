@@ -130,6 +130,12 @@ export default new Vuex.Store({
         message: 'Item removed successfully!',
         type: 'is-success'
       });
+    },
+    CHECK_OUT(state) {
+      Toast.open({
+        message: "This feature isn't implemented yet",
+        type: 'is-danger'
+      });
     }
   },
   getters: {

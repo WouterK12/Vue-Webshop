@@ -3,7 +3,7 @@
     <v-layout>
       <div
         class="basic-slider bg-center ptb-200"
-        style="background-image: url(assets/img/5.jpg)"
+        style="background-image: url(assets/img/white.jpg)"
       >
         <div class="container">
           <div class="hero-caption pt-30">

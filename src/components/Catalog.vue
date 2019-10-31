@@ -5,7 +5,13 @@
         <div class="portfolio-wrapper" @click="goToDetail(item.id)">
           <div class="portfolio-thumb">
             <img src="../assets/img/5.jpg" alt />
-         
+            <div class="ml-6 mr-6">
+              <v-row>
+                <h2 style="font-size:20px;">{{item.name}}</h2>
+                <v-spacer></v-spacer>
+                <h5 style="font-size: 15px;">€ {{item.price}}</h5>
+              </v-row>
+            </div>
           </div>
           <div class="portfolio-caption text-left">
             <div class="work-tag">
@@ -22,21 +28,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
-  Name: 'Catalog',
+  Name: "Catalog",
   computed: {
-    ...mapState(['items'])
+    ...mapState(["items"])
   },
   methods: {
     goToDetail(id) {
       window.scrollTo(0, 0);
-      this.$router.push({ name: 'productDetail', params: { productId: id } });
+      this.$router.push({ name: "productDetail", params: { productId: id } });
     }
-  },
-  created() {
-    // this.$store.commit("REFRESH_POSTS");
   }
 };
 </script>

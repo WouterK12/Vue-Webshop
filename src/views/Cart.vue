@@ -62,7 +62,7 @@
       </v-row>
     </div>
 
-    <v-row>
+    <v-row v-if="cart.length">
       <div
         class="mx-auto mtb-90"
         :style="$vuetify.breakpoint.mdAndDown ? 'width:70%' : 'width: 40%'"
@@ -75,7 +75,7 @@
             </h3>
           </v-col>
           <v-col>
-            <a class="btn checkout-btn">
+            <a class="btn checkout-btn" @click="checkOut()">
               Check out
               <i style="font-size: 15px; margin-left: 15px;" class="ion-ios-arrow-forward"></i>
             </a>
@@ -83,6 +83,9 @@
         </v-row>
       </div>
     </v-row>
+    <div v-else class="text-center justify-center mtb-100">
+      <h3 style="font-size: 20px;">Your cart is empty!</h3>
+    </div>
   </v-container>
 </template>
 
@@ -105,6 +108,9 @@ export default {
   methods: {
     removeItem(item) {
       this.$store.commit('REMOVE_FROM_CART', item);
+    },
+    checkOut() {
+      this.$store.commit('CHECK_OUT');
     }
   }
 };
