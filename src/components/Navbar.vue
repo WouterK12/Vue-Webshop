@@ -2,7 +2,7 @@
   <div>
     <v-app-bar app flat>
       <v-row no-gutters align="center" justify="space-between">
-        <v-col>
+        <v-col >
           <autocomplete
             :search="search"
             :placeholder="searchActive? 'Search for an item' : ''"
@@ -10,7 +10,6 @@
             :get-result-value="getResultValue"
             @submit="handleSubmit"
             @click="searchActive = !searchActive"
-            style="min-width: 60px;"
           >
             <template v-slot:result="{ result, props }">
               <li v-bind="props" class="autocomplete-result">
@@ -20,7 +19,7 @@
           </autocomplete>
         </v-col>
 
-        <v-col lg="6" md="4" sm="10" xl="8" cols="9">
+        <v-col lg="6" md="4" sm="9" xl="8" cols="10">
           <v-toolbar-title>
             <router-link to="/">
               <h3 class="text-center">Vueshop</h3>
