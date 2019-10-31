@@ -3,9 +3,24 @@
     <v-app-bar app flat>
       <v-row no-gutters align="center" justify="space-between">
         <v-col>
-          <i style="font-size: 30px; margin-left: 5px;" class="ion-ios-search"></i>
+          <autocomplete
+            :search="search"
+            :placeholder="searchActive? 'Search for an item' : ''"
+            aria-label="Search for an item"
+            :get-result-value="getResultValue"
+            @submit="handleSubmit"
+            @click="searchActive = !searchActive"
+            style="min-width: 60px;"
+          >
+            <template v-slot:result="{ result, props }">
+              <li v-bind="props" class="autocomplete-result">
+                <div>{{ result.name }}</div>
+              </li>
+            </template>
+          </autocomplete>
         </v-col>
-        <v-col lg="6" md="4" sm="10" xl="8" cols="10">
+
+        <v-col lg="6" md="4" sm="10" xl="8" cols="9">
           <v-toolbar-title>
             <router-link to="/">
               <h3 class="text-center">Vueshop</h3>
@@ -70,7 +85,8 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    hamburger: false
+    hamburger: false,
+    searchActive: false
   }),
   watch: {
     group() {
@@ -78,18 +94,47 @@ export default {
     }
   },
   computed: {
-    ...mapState(['links', 'cart'])
+    ...mapState(['links', 'cart', 'items'])
+  },
+  methods: {
+    search(input) {
+      if (input.length < 1) {
+        return [];
+      }
+      return this.items.filter(el => el.name.toLowerCase().includes(input.toLowerCase()));
+    },
+    handleSubmit(result) {
+      if (result && this.$route.params.productId !== result.id) {
+        this.$router.push({
+          name: 'productDetail',
+          params: { productId: result.id }
+        });
+        this.searchActive = false;
+      }
+    },
+    getResultValue(result) {
+      return ' ';
+      // return result.name;
+    }
   }
 };
 </script>
 
 <style lang="scss">
+.autocomplete-input {
+  background-color: inherit;
+  border: none;
+}
+
 .v-badge__badge {
   padding: 0px !important;
   border-radius: 11px !important;
   height: 15px !important;
   font-size: 10px !important;
   min-width: 15px !important;
+}
+.hamburger {
+  padding: 0px !important;
 }
 
 $hamburger-layer-width: 30px;
