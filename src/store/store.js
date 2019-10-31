@@ -1,7 +1,8 @@
 /* eslint-disable global-require */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { ToastProgrammatic as Toast } from 'buefy';
+import mutations from './mutations';
+import getters from './getters';
 
 Vue.use(Vuex);
 
@@ -25,9 +26,9 @@ export default new Vuex.Store({
       }
     ],
     pics: [
-      { src: require('./assets/img/5.jpg') },
-      { src: require('./assets/img/5.jpg') },
-      { src: require('./assets/img/6.jpg') }
+      { src: require('../assets/img/5.jpg') },
+      { src: require('../assets/img/5.jpg') },
+      { src: require('../assets/img/6.jpg') }
     ],
     items: [
       {
@@ -107,48 +108,6 @@ export default new Vuex.Store({
     cart: [],
     whishlist: []
   },
-  mutations: {
-    ADD_TO_CART(state, payload) {
-      const item = state.cart.find(
-        el => el.id === payload.id && el.color === payload.color && el.size === payload.size
-      );
-      if (item) {
-        item.quantity += 1;
-        item.price = payload.price * item.quantity;
-      } else {
-        state.cart.push({ ...payload, quantity: 1, cart_id: Math.floor(Math.random() * 10000) });
-      }
-
-      Toast.open({
-        message: 'Item added successfully!',
-        type: 'is-success'
-      });
-    },
-    REMOVE_FROM_CART(state, payload) {
-      state.cart = state.cart.filter(el => el.cart_id !== payload.cart_id);
-      Toast.open({
-        message: 'Item removed successfully!',
-        type: 'is-success'
-      });
-    },
-    CHECK_OUT(state) {
-      Toast.open({
-        message: "This feature isn't implemented yet",
-        type: 'is-danger'
-      });
-    }
-  },
-  getters: {
-    getProductById: state => id => state.items.find(item => item.id === Number(id)),
-    getPageInfoByName: state => name => state.links.find(link => link.name === name),
-    getProductPictures: state => () => state.pics, // some functions to fetch the products pictures
-    getCartItems: state => () => state.cart,
-    getCartItemPic: state => () => state.pics[0],
-    getCartTotal: state => () => {
-      if (state.cart.length === 0) return 0;
-
-      const temp = state.cart.reduce((a, b) => a + (b.price || 0), 0);
-      return Math.round(temp * 100) / 100;
-    }
-  }
+  mutations: { ...mutations },
+  getters: { ...getters }
 });

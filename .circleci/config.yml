@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.0
+
+    steps:
+      - checkout
+      - restore-cache:
+        key: dependency-cache-{{ checksum "package-lock.json" }}
+      
+      - run : npm install
+
+      - save_cache: # special step to save the dependency cache
+        key: dependency-cache-{{ checksum "package-lock.json" }}
+        paths:
+          - ./node_modules
+
+      - run : npm run test:unit
