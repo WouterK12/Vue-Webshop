@@ -1,9 +1,14 @@
 
+  
 # Vueshop
 
 This is a webshop starting template made with Vuetify & Vuejs.
 
 > Vue, Vuetify, Buefy, Webshop
+
+
+ [![CircleCI](https://circleci.com/gh/WDaan/Vuewebshop/tree/master.svg?style=svg)](https://circleci.com/gh/WDaan/Vuewebshop/tree/master)
+ [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
  
 ## Project Goal
 
@@ -45,4 +50,5 @@ npm install & npm run serve
 
 Feel free to improve it 😄
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+ [![CircleCI](https://circleci.com/gh/WDaan/Vuewebshop/tree/master.svg?style=svg)](https://circleci.com/gh/WDaan/Vuewebshop/tree/master)
+ ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
