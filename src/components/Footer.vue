@@ -4,7 +4,7 @@
       <div class="container">
         <div class="footer-logo mb-30">
           <router-link to="/">
-             <h3>Vueshop</h3>
+             <h3>Shop</h3>
           </router-link>
         </div>
         <div class="social-icon">
@@ -18,17 +18,8 @@
             <i class="ion-social-instagram"></i>
           </a>
         </div>
-        <div class="footer-menu mt-30">
-          <nav>
-            <ul>
-              <li v-for="link in links" v-bind:key="link.name">
-                <router-link :to="link.location">{{link.name}}</router-link>
-              </li>
-            </ul>
-          </nav>
-        </div>
         <div class="copyright mt-20">
-          <p>Made by Daan Wijns</p>
+          <p></p>
         </div>
       </div>
     </div>

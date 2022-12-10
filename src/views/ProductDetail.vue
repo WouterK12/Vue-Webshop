@@ -84,10 +84,6 @@
                     Add To Card
                     <i class="ml-3 ion-ios-cart-outline icons"></i>
                   </a>
-                  <a class="btn-light ml-5">
-                    whishlist
-                    <i class="ml-5 ion-ios-heart-outline icons"></i>
-                  </a>
                 </v-flex>
               </v-layout>
             </v-container>
