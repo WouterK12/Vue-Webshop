@@ -18,8 +18,8 @@
             delimiter-icon="mdi-minus"
             class="caroussel"
           >
-            <v-carousel-item v-for="(pic, i) in pics" :key="i">
-              <img v-bind:src="pic.src" />
+            <v-carousel-item v-for="(pic, i) in product.pics" :key="i">
+              <img v-bind:src="pic" />
             </v-carousel-item>
           </v-carousel>
         </v-flex>
@@ -123,10 +123,9 @@ export default {
       this.item.name = temp.name;
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.item.price = temp.price;
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.item.banner = temp.banner;
       return temp;
-    },
-    pics() {
-      return this.getProductPictures();
     }
   },
   data: () => ({

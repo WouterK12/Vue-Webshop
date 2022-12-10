@@ -4,7 +4,7 @@
       <v-flex md4 sm6 xs12 class="portfolio-item" v-for="item in items" v-bind:key="item.name">
         <div class="portfolio-wrapper" @click="goToDetail(item.id)">
           <div class="portfolio-thumb">
-            <img src="../assets/img/5.jpg" alt />
+            <img v-bind:src="item.banner" alt />
             <div class="ml-6 mr-6">
               <v-row>
                 <h2 style="font-size:20px;">{{item.name}}</h2>
@@ -33,7 +33,7 @@ import { mapState } from "vuex";
 export default {
   Name: "Catalog",
   computed: {
-    ...mapState(["items"])
+    ...mapState(["items"]),
   },
   methods: {
     goToDetail(id) {

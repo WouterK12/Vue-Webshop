@@ -36,7 +36,7 @@
                 <router-link to="/cart">
                   <v-badge left overlap color="#444">
                     <template v-slot:badge>
-                      <span v-if="cart.length > 0">{{ cart.length }}</span>
+                      <span v-if="cart.length > 0">{{ cart.map((i) => i.quantity)[0] }}</span>
                     </template>
                     <i style="font-size: 20px;" class="ion-ios-cart icons"></i>
                   </v-badge>

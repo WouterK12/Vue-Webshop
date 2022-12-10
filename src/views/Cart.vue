@@ -22,7 +22,7 @@
             flat
             style="max-width: 450px; margin: 0 auto; border-radius: 0px;"
           >
-            <v-img :src="pic" style="width: 90%; border-radius: 0px; margin: 0 auto;"></v-img>
+            <v-img :src="item.banner" style="width: 90%; border-radius: 0px; margin: 0 auto;"></v-img>
           </v-card>
         </v-flex>
         <v-spacer></v-spacer>
@@ -94,12 +94,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['getCartItems', 'getCartItemPic', 'getCartTotal']),
+    ...mapGetters(['getCartItems', 'getCartTotal']),
     cart() {
       return this.getCartItems();
-    },
-    pic() {
-      return this.getCartItemPic();
     },
     total() {
       return this.getCartTotal();
