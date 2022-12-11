@@ -19,7 +19,7 @@
           <v-col>
             <h3 style="font-size: 20px;">
               Total:
-              <span style="font-weight: 600; margin-left: 15px;">€ {{total}}</span>
+              <span style="font-weight: 600; margin-left: 15px;">{{config.CURRENCY_SYMBOL}} {{total}}</span>
             </h3>
           </v-col>
           <v-col>
@@ -43,7 +43,7 @@ import CartProducts from '../components/CartProducts.vue';
 
 export default {
   computed: {
-    ...mapState(['cart']),
+    ...mapState(['config', 'cart']),
     ...mapGetters(['getCartTotal']),
     total() {
       return this.getCartTotal();

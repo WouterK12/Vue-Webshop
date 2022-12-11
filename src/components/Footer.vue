@@ -4,7 +4,7 @@
       <div class="container">
         <div class="footer-logo mb-30">
           <router-link to="/">
-             <h3>{{shopname}}</h3>
+             <h3>{{config.SHOPNAME}}</h3>
           </router-link>
         </div>
         <div class="social-icon">
@@ -31,7 +31,7 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['shopname', 'links'])
+    ...mapState(['config', 'links'])
   }
 };
 </script>

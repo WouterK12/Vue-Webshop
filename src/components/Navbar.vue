@@ -22,7 +22,7 @@
         <v-col>
           <v-toolbar-title>
             <router-link to="/">
-              <h3 class="text-center">{{shopname}}</h3>
+              <h3 class="text-center">{{config.SHOPNAME}}</h3>
             </router-link>
           </v-toolbar-title>
         </v-col>
@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['shopname', 'links', 'cart', 'items']),
+    ...mapState(['config', 'links', 'cart', 'items']),
     totalAmountInCart(){
       return this.cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
     }

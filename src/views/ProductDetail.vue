@@ -40,7 +40,7 @@
                 <v-flex class="detail-container">
                   <h1 style="font-size: 30px;">{{product.name}}</h1>
                   <br />
-                  <h4 style="font-size: 20px;">€ {{product.price}}</h4>
+                  <h4 style="font-size: 20px;">{{config.CURRENCY_SYMBOL}} {{product.price}}</h4>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -106,10 +106,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   computed: {
+    ...mapState(['config']),
     ...mapGetters(['getProductById', 'getProductPictures']),
     product() {
       const temp = this.getProductById(this.$route.params.productId);

@@ -2,6 +2,7 @@
   "SHOPNAME": "Shop",
   "DOMAIN": "vue-webshop.wouterk12.com",
   "CURRENCY": "EUR",
+  "CURRENCY_SYMBOL": "€",
   "SHIPPING_COSTS": 6.75,
   "PAYPAL_MERCHANT_EMAIL": "merchant@example.com",
   "PAYPAL_WEB_EXPERIENCE": {

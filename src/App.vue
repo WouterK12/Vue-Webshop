@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <title>{{shopname}}</title>
+    <title>{{config.SHOPNAME}}</title>
     <v-card flat class="mx-auto overflow-hidden" width="100%" height="100%">
       <Navbar />
       <v-content>
@@ -23,7 +23,7 @@ import Navbar from './components/Navbar.vue';
 export default {
   name: 'App',
   computed: {
-    ...mapState(['shopname']),
+    ...mapState(['config']),
     ...mapGetters(['getCartItems']),
   },
   created() {

@@ -8,6 +8,7 @@ For a comprehensive README on this project, see the original project.
 - Individual images for products
 - PayPal payment method using a Netlify serverless function
 - Shopping cart stored in localStorage
+- Customize variables using the `config.json`
 
 ## Planned
 
@@ -23,7 +24,7 @@ ntl dev
 
 ### Deploy
 
-If you want to deploy this, or a fork of this project, first [register the repository on Netlify](https://www.netlify.com/products/build/).  
+If you want to deploy this project, or a fork of this project, first [register the repository on Netlify](https://www.netlify.com/products/build/).  
 Set the following environment variables as described in [Netlify's documentation](https://docs.netlify.com/environment-variables/get-started/#site-environment-variables):
 
 - `PAYPAL_CLIENT_ID` - Your PayPal REST API Client Id
@@ -32,3 +33,5 @@ Set the following environment variables as described in [Netlify's documentation
   If set to any value, the application uses PayPal's live API, instead of the default sandbox API.
 
 You can request PayPal credentials for sandbox and live modes [on their website](https://developer.paypal.com/dashboard/applications/sandbox).
+
+Also, don't forget to update or remove `/public/robots.txt` to allow search engines to index your shop.

@@ -9,7 +9,7 @@
               <v-row>
                 <h2 style="font-size:20px;">{{item.name}}</h2>
                 <v-spacer></v-spacer>
-                <h5 style="font-size: 15px;">€ {{item.price}}</h5>
+                <h5 style="font-size: 15px;">{{config.CURRENCY_SYMBOL}} {{item.price}}</h5>
               </v-row>
             </div>
           </div>
@@ -33,7 +33,7 @@ import { mapState } from "vuex";
 export default {
   Name: "Catalog",
   computed: {
-    ...mapState(["items"]),
+    ...mapState(["config", "items"]),
   },
   methods: {
     goToDetail(id) {
