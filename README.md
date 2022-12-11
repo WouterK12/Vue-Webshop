@@ -21,10 +21,10 @@ npm install netlify-cli -g
 ntl dev
 ```
 
-### Fork
+### Deploy
 
-If you want to deploy a fork of this project, first [register your fork on Netlify](https://www.netlify.com/products/build/).  
-Set the following environment variables as described in the [Netlify documentation](https://docs.netlify.com/environment-variables/get-started/#site-environment-variables):
+If you want to deploy this, or a fork of this project, first [register the repository on Netlify](https://www.netlify.com/products/build/).  
+Set the following environment variables as described in [Netlify's documentation](https://docs.netlify.com/environment-variables/get-started/#site-environment-variables):
 
 - `PAYPAL_CLIENT_ID` - Your PayPal REST API Client Id
 - `PAYPAL_SECRET` - Your PayPal REST API Secret
