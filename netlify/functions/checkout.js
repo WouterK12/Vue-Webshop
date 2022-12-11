@@ -34,7 +34,7 @@ export const handler = async (event, context) => {
   const paymentResponse = await fetch(`${paypalUrl}/v1/payments/payment`, {
     method: "POST",
     headers: {
-      Authorization: `Basic ${authHeaderBase64}`,
+      Authorization: `Basic ${authenticationHeader}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payment),
