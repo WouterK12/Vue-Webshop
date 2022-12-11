@@ -3,11 +3,13 @@ import Vue from "vue";
 import Vuex from "vuex";
 import mutations from "./mutations";
 import getters from "./getters";
+import { SHOPNAME } from "../../config.json";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    shopname: SHOPNAME,
     links: [
       {
         name: "products",
@@ -23,6 +25,16 @@ export default new Vuex.Store({
         banner: require("../assets/img/5.jpg"),
         pics: [require("../assets/img/5.jpg"), require("../assets/img/6.jpg")],
         price: 24.99,
+        category: "products",
+        // TODO: add stock and update products in db
+      },
+      {
+        id: 2,
+        name: "Product 2",
+        description: "The best product",
+        banner: require("../assets/img/5.jpg"),
+        pics: [require("../assets/img/5.jpg"), require("../assets/img/6.jpg")],
+        price: 14.99,
         category: "products",
         // TODO: add stock and update products in db
       },

@@ -22,7 +22,7 @@
         <v-col>
           <v-toolbar-title>
             <router-link to="/">
-              <h3 class="text-center">Shop</h3>
+              <h3 class="text-center">{{shopname}}</h3>
             </router-link>
           </v-toolbar-title>
         </v-col>
@@ -33,7 +33,7 @@
                 <router-link to="/cart">
                   <v-badge left overlap color="#444">
                     <template v-slot:badge>
-                      <span v-if="cart.length > 0">{{ cart.map((i) => i.quantity)[0] }}</span>
+                      <span v-if="cart.length > 0">{{ totalAmountInCart }}</span>
                     </template>
                     <i style="font-size: 25px;" class="ion-ios-cart icons"></i>
                   </v-badge>
@@ -63,7 +63,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['links', 'cart', 'items'])
+    ...mapState(['shopname', 'links', 'cart', 'items']),
+    totalAmountInCart(){
+      return this.cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
+    }
   },
   methods: {
     search(input) {

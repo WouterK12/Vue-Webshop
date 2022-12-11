@@ -78,6 +78,7 @@ export default {
           message: "Oops! Something went wrong! Try again later.",
           type: "is-danger",
         });
+        return;
       });
 
     Toast.open({
