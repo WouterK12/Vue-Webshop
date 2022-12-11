@@ -52,8 +52,6 @@ export default {
       type: "is-success",
     });
 
-    let approvalUrl;
-
     await fetch("/.netlify/functions/checkout", {
       method: "POST",
       headers: {
@@ -62,30 +60,31 @@ export default {
       body: JSON.stringify(state.cart),
     })
       .then(async (response) => {
+        const data = await response.text();
+
         if (response.status != 201) {
-          throw response;
+          throw data;
         }
 
-        approvalUrl = await response.text();
-
-        if (!approvalUrl) {
+        if (!data) {
           throw "Could not get approval url from response.";
         }
+
+        Toast.open({
+          message: "Redirecting to PayPal...",
+          type: "is-success",
+        });
+
+        window.open(data, "_blank");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+
         Toast.open({
           message: "Oops! Something went wrong! Try again later.",
           type: "is-danger",
         });
         return;
       });
-
-    Toast.open({
-      message: "Redirecting to PayPal...",
-      type: "is-success",
-    });
-
-    window.open(approvalUrl, "_blank");
   },
 };

@@ -44,7 +44,7 @@ export const handler = async (event, context) => {
   if (paymentResponse.status != 201) {
     return {
       statusCode: paymentResponse.status,
-      body: paymentData.state,
+      body: paymentData,
     };
   }
 
@@ -95,7 +95,8 @@ async function createNewExperience(authenticationHeader, paypalUrl) {
 
 function createPaymentModel(cart, existingExperience) {
   const temp = cart.reduce((a, b) => a + (b.totalPrice || 0), 0);
-  const cartTotal = Math.round(temp * 100) / 100;
+  const subTotal = Math.round(temp * 100) / 100;
+  const cartTotal = Math.round((subTotal + config.SHIPPING_COSTS) * 100) / 100;
 
   return {
     intent: "authorize",
@@ -107,10 +108,10 @@ function createPaymentModel(cart, existingExperience) {
       {
         amount: {
           currency: config.CURRENCY,
-          total: cartTotal + config.SHIPPING_COSTS,
+          total: cartTotal,
           details: {
             shipping: config.SHIPPING_COSTS,
-            subtotal: cartTotal,
+            subtotal: subTotal,
           },
         },
         payee: {
