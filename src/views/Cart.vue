@@ -13,22 +13,38 @@
     <v-row v-if="cart.length">
       <div
         class="mx-auto mtb-90"
-        :style="$vuetify.breakpoint.mdAndDown ? 'width:70%' : 'width: 40%'"
+        :style="$vuetify.breakpoint.mdAndDown ? 'width:70%' : 'width:40%'"
       >
-        <v-row align="center" justify="center">
+        <div class="d-flex align-center justify-center" :style="$vuetify.breakpoint.mdAndDown ? 'flex-direction: column' : ''">
           <v-col>
-            <h3 style="font-size: 20px;">
-              Total:
-              <span style="font-weight: 600; margin-left: 15px;">{{config.CURRENCY_SYMBOL}} {{total}}</span>
-            </h3>
+            <v-row v-if="config.SHIPPING_COSTS > 0">
+              <v-col class="pb-0 d-flex justify-end">
+                <h3 style="font-size: 20px;">
+                Shipping:
+                </h3>
+              </v-col>
+              <v-col class="pb-0 d-flex justify-start">
+                <span style="font-weight: 600; margin-left: 15px;">{{config.CURRENCY_SYMBOL}} {{config.SHIPPING_COSTS}}</span>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="d-flex justify-end">
+                <h3 style="font-size: 20px;">
+                  Total:
+                </h3>
+              </v-col>
+              <v-col class="d-flex justify-start">
+                <span style="font-weight: 600; margin-left: 15px;">{{config.CURRENCY_SYMBOL}} {{total}}</span>
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col>
+          <v-col class="d-flex justify-center">
             <a class="btn checkout-btn" @click="checkOut()">
               Check out
               <i style="font-size: 15px; margin-left: 15px;" class="ion-ios-arrow-forward"></i>
             </a>
           </v-col>
-        </v-row>
+        </div>
       </div>
     </v-row>
     <div v-else class="text-center justify-center mtb-100">

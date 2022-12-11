@@ -1,3 +1,5 @@
+import { SHIPPING_COSTS } from "../../config.json";
+
 const localStorageCartName = "cart";
 
 export default {
@@ -20,7 +22,9 @@ export default {
   getCartTotal: (state) => () => {
     if (state.cart.length === 0) return 0;
 
+    // TODO: put functionality in shared function (Netlify serverless function uses this too)
     const temp = state.cart.reduce((a, b) => a + (b.totalPrice || 0), 0);
-    return Math.round(temp * 100) / 100;
+    const subTotal = Math.round(temp * 100) / 100;
+    return Math.round((subTotal + SHIPPING_COSTS) * 100) / 100;
   },
 };
