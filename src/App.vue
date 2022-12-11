@@ -14,11 +14,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Footer from './components/Footer.vue';
 import Navbar from './components/Navbar.vue';
 
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters(['getCartItems']),
+  },
+  created() {
+    this.$store.commit('INITIALIZE_CART', this.getCartItems());
+  },
   data: () => ({
     fab: false
   }),

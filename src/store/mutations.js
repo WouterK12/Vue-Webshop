@@ -1,28 +1,36 @@
 import { ToastProgrammatic as Toast } from "buefy";
 
+const localStorageCartName = "cart";
+
 export default {
+  INITIALIZE_CART(state, payload) {
+    state.cart = payload;
+  },
   ADD_TO_CART(state, payload) {
-    const item = state.cart.find(
+    const itemInCart = state.cart.find(
       (el) => el.id === payload.id && el.color === payload.color && el.size === payload.size
     );
-    if (item) {
-      item.quantity += 1;
-      item.price = payload.price;
-      item.totalPrice = payload.price * item.quantity;
+
+    if (itemInCart) {
+      itemInCart.quantity += 1;
+      itemInCart.price = payload.price;
+      itemInCart.totalPrice = payload.price * itemInCart.quantity;
     } else {
       payload.totalPrice = payload.price;
       state.cart.push({ ...payload, quantity: 1, cart_id: Math.floor(Math.random() * 10000) });
     }
 
+    localStorage.setItem(localStorageCartName, JSON.stringify(state.cart));
+
     Toast.open({
-      message: "Item added successfully!",
+      message: "Item added to cart!",
       type: "is-success",
     });
   },
   REMOVE_FROM_CART(state, payload) {
     state.cart = state.cart.filter((el) => el.cart_id !== payload.cart_id);
     Toast.open({
-      message: "Item removed successfully!",
+      message: "Item removed from cart!",
       type: "is-success",
     });
   },

@@ -24,6 +24,7 @@ export default new Vuex.Store({
         pics: [require("../assets/img/5.jpg"), require("../assets/img/6.jpg")],
         price: 24.99,
         category: "products",
+        // TODO: add stock and update products in db
       },
       // {
       //   id: 3,

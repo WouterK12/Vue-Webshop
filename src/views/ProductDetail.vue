@@ -113,14 +113,7 @@ export default {
     ...mapGetters(['getProductById', 'getProductPictures']),
     product() {
       const temp = this.getProductById(this.$route.params.productId);
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.item.id = temp.id;
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.item.name = temp.name;
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.item.price = temp.price;
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.item.banner = temp.banner;
+      this.item = temp;
       return temp;
     }
   },
@@ -136,8 +129,8 @@ export default {
   }),
   methods: {
     resetSelected() {
-      const childs = document.getElementById('sizes').childNodes;
-      childs.forEach(el => el.classList.remove('size-selected'));
+      const children = document.getElementById('sizes').childNodes;
+      children.forEach(el => el.classList.remove('size-selected'));
     },
     selectSize(size) {
       this.resetSelected();
@@ -145,8 +138,8 @@ export default {
       this.item.size = size;
     },
     resetSelectedColors() {
-      const childs = document.getElementById('colors').childNodes;
-      childs.forEach(el => el.classList.remove(`product-${el.id}-selected`));
+      const children = document.getElementById('colors').childNodes;
+      children.forEach(el => el.classList.remove(`product-${el.id}-selected`));
     },
     selectColor(color) {
       this.resetSelectedColors();
@@ -253,6 +246,7 @@ export default {
   margin: 5px;
 }
 .size-btn {
+  user-select: none;
   -moz-user-select: none;
   background: #fff none repeat scroll 0 0;
   border: 1px solid transparent;
@@ -280,6 +274,7 @@ export default {
 }
 
 .color-btn {
+  user-select: none;
   -moz-user-select: none;
   background: #fff none repeat scroll 0 0;
   border: 1px solid transparent;
@@ -298,8 +293,6 @@ export default {
   transition: all 0.3s ease 0s;
   vertical-align: middle;
 }
-
-/*COLORS   DON'T WORK WHEN NOT HERE??? NOT SURE WHY*/
 
 .product-green {
   color: hsl(171, 100%, 41%) !important;
