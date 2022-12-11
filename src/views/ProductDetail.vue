@@ -131,7 +131,7 @@ export default {
       color: null,
       id: null,
       name: null,
-      price: null
+      price: null,
     }
   }),
   methods: {

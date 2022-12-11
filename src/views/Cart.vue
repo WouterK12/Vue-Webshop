@@ -34,7 +34,7 @@
                   <router-link :to="'/product/'+item.id">
                     <h1 style="font-size: 30px;">{{item.name}}</h1>
                   </router-link>
-                  <h4 class="font-size: 20px; mt-4">€ {{item.price}}</h4>
+                  <h4 class="font-size: 20px; mt-4">€ {{item.totalPrice}}</h4>
                   <div class="mt-5">
                     <p>Quantity: {{item.quantity}}</p>
                     <p v-if="item.size">Size: {{item.size}}</p>

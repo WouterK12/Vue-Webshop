@@ -1,38 +1,42 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'products',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Products.vue')
+      path: "/",
+      name: "products",
+      component: () => import(/* webpackChunkName: "products" */ "./views/Products.vue"),
     },
     {
-      path: '/cart',
-      name: 'cart',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Cart.vue')
+      path: "/cart",
+      name: "cart",
+      component: () => import(/* webpackChunkName: "cart" */ "./views/Cart.vue"),
     },
     {
-      path: '*',
-      redirect: '/'
+      path: "*",
+      redirect: "/",
     },
     {
-      path: '/product/:productId',
-      name: 'productDetail',
-      component: () => import(/* webpackChunkName: "bookDetail" */ './views/ProductDetail.vue')
-    }
-  ]
+      path: "/product/:productId",
+      name: "productDetail",
+      component: () => import(/* webpackChunkName: "productDetail" */ "./views/ProductDetail.vue"),
+    },
+    {
+      path: "/success",
+      name: "success",
+      component: () => import(/* webpackChunkName: "success" */ "./views/Success.vue"),
+    },
+    {
+      path: "/cancelled",
+      name: "cancelled",
+      component: () => import(/* webpackChunkName: "cancelled" */ "./views/Cancelled.vue"),
+    },
+  ],
 });
 
 export default router;

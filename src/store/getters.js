@@ -5,7 +5,7 @@ export default {
   getCartTotal: (state) => () => {
     if (state.cart.length === 0) return 0;
 
-    const temp = state.cart.reduce((a, b) => a + (b.price || 0), 0);
+    const temp = state.cart.reduce((a, b) => a + (b.totalPrice || 0), 0);
     return Math.round(temp * 100) / 100;
   },
 };

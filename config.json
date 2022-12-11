@@ -1,0 +1,10 @@
+{
+  "DOMAIN": "example.com",
+  "CURRENCY": "EUR",
+  "SHIPPING_COSTS": 6.75,
+  "PAYPAL_MERCHANT_EMAIL": "merchant@example.com",
+  "PAYPAL_WEB_EXPERIENCE": {
+    "NAME": "Vue-Webshop-Experience",
+    "LOGO_IMAGE": "https://example.com/img/logo.jpg"
+  }
+}
