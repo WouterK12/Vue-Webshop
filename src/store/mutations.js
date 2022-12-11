@@ -29,6 +29,9 @@ export default {
   },
   REMOVE_FROM_CART(state, payload) {
     state.cart = state.cart.filter((el) => el.cart_id !== payload.cart_id);
+
+    localStorage.setItem(localStorageCartName, JSON.stringify(state.cart));
+
     Toast.open({
       message: "Item removed from cart!",
       type: "is-success",
