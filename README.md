@@ -17,7 +17,7 @@ For a comprehensive README on this project, see the original project.
 ## Usage
 
 ```
-npm install netlify-cli -g
+npm install
 ntl dev
 ```
 
