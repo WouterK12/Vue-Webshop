@@ -1,54 +1,34 @@
+# Vue-Webshop
 
-  
-# Vueshop
+A fork of [Vuewebshop by WDaan](https://github.com/WDaan/Vuewebshop)  
+For a comprehensive README on this project, see the original project.
 
-This is a webshop starting template made with Vuetify & Vuejs.
+## Updated features
 
-> Vue, Vuetify, Buefy, Webshop
+- Individual images for products
+- PayPal payment method using a Netlify serverless function
+- Shopping cart stored in localStorage
 
+## Planned
 
- [![CircleCI](https://circleci.com/gh/WDaan/Vuewebshop/tree/master.svg?style=svg)](https://circleci.com/gh/WDaan/Vuewebshop/tree/master)
- [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
- 
-## Project Goal
+- Products stored in non-relational database
+- Products stock updated after successful payment
 
-I want to make it easy to get a simple webshop up and running super quickly.
-This doesn't mean it can't be used for other purposes as well!
-Also this project uses a lot of things that I probably will need in other projects, so this makes it a good refernce to check back on later.
+## Usage
 
-
-## Features
-
-- Okay/Good looking interface
-- Working shopping cart
-- Good mobile version
-- Search functionality
-
-## Not working/implemented
-- Payment checkout
-- Search on mobile, the element doesn't scale well (yet)
-- lazy loading catalog
-- custom images for products
-- way to filter in a catalog
-
-
-## Screenshots
-
-[![Login](https://imgur.com/5AbIkZQ.png "Login")](https://imgur.com/5AbIkZQ.png)
-[![Login](https://imgur.com/ThwD9LN.png "Login")](https://imgur.com/ThwD9LN.png)
-[![Login](https://imgur.com/w1cLjA3.png "Login")](https://imgur.com/w1cLjA3.png)
-[![Login](https://imgur.com/ZHPDxGy.png "Login")](https://imgur.com/ZHPDxGy.png)
-[![Login](https://imgur.com/jLzH8vH.png "Login")](https://imgur.com/jLzH8vH.png)
-[![Login](https://imgur.com/jnZx3zN.png "Login")](https://imgur.com/jnZx3zN.png)
-
-## Getting started
 ```
-npm install & npm run serve
- ```
+npm install netlify-cli -g
+ntl dev
+```
 
-## 
+### Fork
 
-Feel free to improve it 😄
+If you want to deploy a fork of this project, first [register your fork on Netlify](https://www.netlify.com/products/build/).  
+Set the following environment variables as described in the [Netlify documentation](https://docs.netlify.com/environment-variables/get-started/#site-environment-variables):
 
- [![CircleCI](https://circleci.com/gh/WDaan/Vuewebshop/tree/master.svg?style=svg)](https://circleci.com/gh/WDaan/Vuewebshop/tree/master)
- ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
+- `PAYPAL_CLIENT_ID` - Your PayPal REST API Client Id
+- `PAYPAL_SECRET` - Your PayPal REST API Secret
+- `PAYPAL_PRODUCTION_MODE` - (Optional)  
+  If set to any value, the application uses PayPal's live API, instead of the default sandbox API.
+
+You can request PayPal credentials for sandbox and live modes [on their website](https://developer.paypal.com/dashboard/applications/sandbox).
