@@ -30,7 +30,7 @@
           <nav >
             <ul class="basic-menu">
               <li>
-                <router-link to="/cart">
+                <router-link v-if="cartLinkIsActive" to="/cart">
                   <v-badge left overlap color="#444">
                     <template v-slot:badge>
                       <span v-if="cart && cart.length > 0">{{ totalAmountInCart }}</span>
@@ -64,6 +64,9 @@ export default {
   },
   computed: {
     ...mapState(['config', 'cart', 'products']),
+    cartLinkIsActive() {
+      return this.$route.name !== "success";
+    },
     totalAmountInCart(){
       return this.cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
     }
@@ -76,17 +79,16 @@ export default {
       return this.products.filter(el => el.name.toLowerCase().includes(input.toLowerCase()));
     },
     handleSubmit(result) {
-      if (result && this.$route.params.productId !== result.id) {
+      if (result && this.$route.params.productId !== result._id) {
         this.$router.push({
           name: 'productDetail',
-          params: { productId: result.id }
+          params: { productId: result._id, productName: result.name }
         });
         this.searchActive = false;
       }
     },
     getResultValue(result) {
       return ' ';
-      // return result.name;
     }
   }
 };

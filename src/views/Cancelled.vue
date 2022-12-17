@@ -10,18 +10,3 @@
     </div>
   </v-container>
 </template>
-
-<script>
-import { mapState } from 'vuex';
-
-export default {
-  computed: {
-    ...mapState(['cart']),
-  },
-  mounted() {
-    if(!this.cart.length){
-      this.$router.push({ name: 'products'});
-    }
-  }
-};
-</script>

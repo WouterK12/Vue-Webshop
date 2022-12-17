@@ -36,6 +36,10 @@ export default {
       type: "is-success",
     });
   },
+  CLEAR_CART(state) {
+    localStorage.removeItem("cart");
+    state.cart = [];
+  },
   async CHECK_OUT(state) {
     if (!state.cart.length) {
       Toast.open({
