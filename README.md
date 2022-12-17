@@ -37,7 +37,7 @@ You can request PayPal credentials for sandbox and live modes [on their website]
 
 **Database**
 
-- `MONGODB_CONNECTION_STRING` - MongoDb cluster url
+- `MONGODB_CONNECTION_STRING` - MongoDb cluster url  
   Learn how to set up a cluster below.
 
 ### Set up a MongoDb cluster
@@ -47,11 +47,11 @@ You can request PayPal credentials for sandbox and live modes [on their website]
 - Choose a server closest to from where your shoppers will be shopping.
 - Leave settings on their defaults.
 - Choose a username and generate a password.
-- Set the cluster to be reachable from IP: `0.0.0.0/0`
-  (`0.0.0.0/0` means anywhere. This is required because Netlify Functions do not support a static IP address.)
+- Set the cluster to be reachable from IP: `0.0.0.0/0`  
+  (`0.0.0.0/0` means anywhere. This is required because Netlify Functions do not support a static IP address.)  
   (Or maybe look into [Signed proxy redirects](https://docs.netlify.com/routing/redirects/rewrites-proxies/#signed-proxy-redirects))
 - On your dashboard, go to the cluster you just created and click `Connect`, then `Connect your application`.
-- Copy the mongodb url for `Node.js`, latest version.
+- Copy the mongodb url for `Node.js`, latest version.  
   (Might look similar to `mongodb+srv://<username>:<password>@<clustername>.<subdomain>.mongodb.net/?retryWrites=true&w=majority`)
 - Replace `<password>` with the password of your cluster.
 - Set the url as environment variable named `MONGODB_CONNECTION_STRING` in Netlify.
