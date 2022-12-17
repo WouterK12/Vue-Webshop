@@ -22,7 +22,7 @@ const router = new Router({
       redirect: "/",
     },
     {
-      path: "/product/:productId",
+      path: "/product/:productId/:productName",
       name: "productDetail",
       component: () => import(/* webpackChunkName: "productDetail" */ "./views/ProductDetail.vue"),
     },

@@ -26,11 +26,11 @@
         <v-flex lg7>
           <v-card class="mh" flat height="100%" style="border-radius:0px">
             <div class="breadcrumbs">
-              <router-link :to="'/'+product.category">
+              <router-link :to="'/'">
                 <h4 class>
-                  {{`${product.category} / `}}
+                  {{`home / `}}
                   <span
-                    class="crumb-item grey--text text--lighten-1"
+                    class="crumb-product grey--text text--lighten-1"
                   >{{product.name}}</span>
                 </h4>
               </router-link>
@@ -40,44 +40,11 @@
                 <v-flex class="detail-container">
                   <h1 style="font-size: 30px;">{{product.name}}</h1>
                   <br />
-                  <h4 style="font-size: 20px;">{{config.CURRENCY_SYMBOL}} {{product.price}}</h4>
+                  <h4 v-if="product.canAddToCart" style="font-size: 20px;">{{config.currency_symbol}} {{product.price}}</h4>
                 </v-flex>
               </v-layout>
             </v-container>
-            <v-container v-if="product.versions && product.versions.sizes" class="size-buttons">
-              <v-layout row wrap align-center>
-                <v-flex class="text-center">
-                  <p style="margin-left: 30px;" class="text-left">Select Size</p>
-                  <div id="sizes">
-                    <a
-                      v-for="(size, i) in product.versions.sizes"
-                      v-bind:key="i"
-                      :id="size"
-                      class="size-btn"
-                      v-on:click="selectSize(`${size}`)"
-                    >{{size}}</a>
-                  </div>
-                </v-flex>
-              </v-layout>
-            </v-container>
-            <v-container v-if="product.versions && product.versions.colors" class="size-buttons">
-              <v-layout row wrap align-center>
-                <v-flex class="text-center">
-                  <p style="margin: 0px 0px 10px 30px;" class="text-left">Select Color</p>
-                  <div id="colors">
-                    <a
-                      v-for="(color, i) in product.versions.colors"
-                      v-bind:key="i"
-                      :id="color"
-                      :class="'product-'+color"
-                      class="color-btn"
-                      v-on:click="selectColor(`${color}`)"
-                    >{{color}}</a>
-                  </div>
-                </v-flex>
-              </v-layout>
-            </v-container>
-            <v-container class="action-buttons">
+            <v-container v-if="product.canAddToCart" class="action-buttons">
               <v-layout row wrap align-center>
                 <v-flex class="text-center">
                   <a class="btn" v-on:click="addToCart()">
@@ -87,20 +54,19 @@
                 </v-flex>
               </v-layout>
             </v-container>
+            <!-- <v-container v-else class="product-description">
+              <h1 style="color:tomato">Out of stock!</h1>
+            </v-container> -->
             <v-container class="product-description">
-              <h4 class="grey--text text--lighten-1">Product Details</h4>
+              <!-- <h4 class="grey--text text--lighten-1">Product Details</h4> -->
               <div style="max-width: 460px;">{{product.description}}</div>
             </v-container>
           </v-card>
         </v-flex>
       </v-row>
     </div>
-    <v-container v-else fill-height style="height: 600px">
-      <v-layout row wrap align-center>
-        <v-flex class="text-center">
-          <v-progress-circular indeterminate color="cyan"></v-progress-circular>
-        </v-flex>
-      </v-layout>
+    <v-container v-else>
+      <v-progress-linear indeterminate color="grey"></v-progress-linear>
     </v-container>
   </div>
 </template>
@@ -111,62 +77,16 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapState(['config']),
-    ...mapGetters(['getProductById', 'getProductPictures']),
+    ...mapGetters(['getProductById']),
     product() {
-      const temp = this.getProductById(this.$route.params.productId);
-      this.item = temp;
-      return temp;
+      return this.getProductById(this.$route.params.productId);
     }
   },
-  data: () => ({
-    model: 0,
-    item: {
-      size: null,
-      color: null,
-      id: null,
-      name: null,
-      price: null,
-    }
-  }),
   methods: {
-    resetSelected() {
-      const children = document.getElementById('sizes').childNodes;
-      children.forEach(el => el.classList.remove('size-selected'));
-    },
-    selectSize(size) {
-      this.resetSelected();
-      document.getElementById(size).classList.add('size-selected');
-      this.item.size = size;
-    },
-    resetSelectedColors() {
-      const children = document.getElementById('colors').childNodes;
-      children.forEach(el => el.classList.remove(`product-${el.id}-selected`));
-    },
-    selectColor(color) {
-      this.resetSelectedColors();
-      this.item.color = color;
-      document.getElementById(color).classList.add(`product-${color}-selected`);
-    },
     addToCart() {
-      this.$store.commit('ADD_TO_CART', this.item);
+      this.$store.commit('ADD_TO_CART', this.product);
     }
   },
-  mounted() {
-    if (
-      this.product != null
-      && this.product.versions != null
-      && this.product.versions.sizes != null
-    ) {
-      this.selectSize(this.product.versions.sizes[0]);
-    }
-    if (
-      this.product != null
-      && this.product.versions != null
-      && this.product.versions.colors != null
-    ) {
-      this.selectColor(this.product.versions.colors[0]);
-    }
-  }
 };
 </script>
 
@@ -293,45 +213,5 @@ export default {
   touch-action: manipulation;
   transition: all 0.3s ease 0s;
   vertical-align: middle;
-}
-
-.product-green {
-  color: hsl(171, 100%, 41%) !important;
-  border-color: hsl(171, 100%, 41%);
-}
-.product-green-selected,
-.product-green:hover {
-  background-color: hsl(171, 100%, 41%) !important;
-  color: #fff !important;
-}
-.product-red {
-  color: hsl(348, 100%, 61%) !important;
-  border-color: hsl(348, 100%, 61%);
-}
-.product-red-selected,
-.product-red:hover {
-  background-color: hsl(348, 100%, 61%);
-  color: #fff !important;
-}
-
-.product-blue {
-  color: hsl(204, 86%, 53%) !important;
-  border-color: hsl(204, 86%, 53%);
-}
-.product-blue-selected,
-.product-blue:hover {
-  background-color: hsl(204, 86%, 53%);
-  color: #fff !important;
-}
-
-.product-black {
-  color: hsl(0, 0%, 21%) !important;
-  border-color: hsl(0, 0%, 21%);
-}
-
-.product-black-selected,
-.product-black:hover {
-  background-color: hsl(0, 0%, 21%);
-  color: #fff !important;
 }
 </style>

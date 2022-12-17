@@ -17,14 +17,14 @@
       >
         <div class="d-flex align-center justify-center" :style="$vuetify.breakpoint.mdAndDown ? 'flex-direction: column' : ''">
           <v-col>
-            <v-row v-if="config.SHIPPING_COSTS > 0">
+            <v-row v-if="config.shipping_costs > 0">
               <v-col class="pb-0 d-flex justify-end">
                 <h3 style="font-size: 20px;">
                 Shipping:
                 </h3>
               </v-col>
               <v-col class="pb-0 d-flex justify-start">
-                <span style="font-weight: 600; margin-left: 15px;">{{config.CURRENCY_SYMBOL}} {{config.SHIPPING_COSTS}}</span>
+                <span style="font-weight: 600; margin-left: 15px;">{{config.currency_symbol}} {{config.shipping_costs}}</span>
               </v-col>
             </v-row>
             <v-row>
@@ -34,7 +34,7 @@
                 </h3>
               </v-col>
               <v-col class="d-flex justify-start">
-                <span style="font-weight: 600; margin-left: 15px;">{{config.CURRENCY_SYMBOL}} {{total}}</span>
+                <span style="font-weight: 600; margin-left: 15px;">{{config.currency_symbol}} {{total}}</span>
               </v-col>
             </v-row>
           </v-col>

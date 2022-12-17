@@ -3,7 +3,7 @@
   <div
       class="mx-auto"
       :style="$vuetify.breakpoint.lgAndDown ? 'max-width:900px' : 'max-width: 1500px'"
-      v-for="(item, i) in cart"
+      v-for="(product, i) in cart"
       v-bind:key="i"
     >
       <v-divider></v-divider>
@@ -15,7 +15,7 @@
             flat
             style="max-width: 450px; margin: 0 auto; border-radius: 0px;"
           >
-            <v-img :src="item.banner" style="width: 90%; border-radius: 0px; margin: 0 auto;"></v-img>
+            <v-img :src="product.banner" style="width: 90%; border-radius: 0px; margin: 0 auto;"></v-img>
           </v-card>
         </v-flex>
         <v-spacer></v-spacer>
@@ -23,18 +23,13 @@
           <v-row>
             <v-col md="5" sm="10" cols="12">
               <v-card flat>
-                <div class="item-details">
-                  <router-link :to="'/product/'+item.id">
-                    <h1 style="font-size: 30px;">{{item.name}}</h1>
+                <div class="product-details">
+                  <router-link :to="'/product/'+product.id">
+                    <h1 style="font-size: 30px;">{{product.name}}</h1>
                   </router-link>
-                  <h4 class="font-size: 20px; mt-4">{{config.CURRENCY_SYMBOL}} {{item.totalPrice}}</h4>
+                  <h4 class="font-size: 20px; mt-4">{{config.currency_symbol}} {{product.totalPrice}}</h4>
                   <div class="mt-5">
-                    <p>Quantity: {{item.quantity}}</p>
-                    <p v-if="item.size">Size: {{item.size}}</p>
-                    <p v-if="item.color">
-                      Color:
-                      <v-chip small class="ma-2" :class="`product-${item.color}-selected`"></v-chip>
-                    </p>
+                    <p>Quantity: {{product.quantity}}</p>
                   </div>
                 </div>
               </v-card>
@@ -44,7 +39,7 @@
                 <v-flex>
                   <v-card flat>
                     <v-card-actions class="justify-center">
-                      <a class="btn-light remove-btn" @click="removeItem(item)">remove</a>
+                      <a class="btn-light remove-btn" @click="removeProduct(product)">remove</a>
                     </v-card-actions>
                   </v-card>
                 </v-flex>
@@ -66,8 +61,8 @@ export default {
     ...mapState(['config', 'cart']),
   },
   methods: {
-    removeItem(item) {
-      this.$store.commit('REMOVE_FROM_CART', item);
+    removeProduct(product) {
+      this.$store.commit('REMOVE_FROM_CART', product);
     }
   }
 };

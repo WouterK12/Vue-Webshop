@@ -3,13 +3,12 @@ import { ToastProgrammatic as Toast } from "buefy";
 const localStorageCartName = "cart";
 
 export default {
-  INITIALIZE_CART(state, payload) {
-    state.cart = payload;
+  INITIALIZE(state, { products, cart }) {
+    state.products = products;
+    state.cart = cart;
   },
   ADD_TO_CART(state, payload) {
-    const itemInCart = state.cart.find(
-      (el) => el.id === payload.id && el.color === payload.color && el.size === payload.size
-    );
+    const itemInCart = state.cart.find((el) => el._id === payload._id);
 
     if (itemInCart) {
       itemInCart.quantity += 1;
@@ -17,7 +16,7 @@ export default {
       itemInCart.totalPrice = payload.price * itemInCart.quantity;
     } else {
       payload.totalPrice = payload.price;
-      state.cart.push({ ...payload, quantity: 1, cart_id: Math.floor(Math.random() * 10000) });
+      state.cart.push({ ...payload, quantity: 1 });
     }
 
     localStorage.setItem(localStorageCartName, JSON.stringify(state.cart));
@@ -28,7 +27,7 @@ export default {
     });
   },
   REMOVE_FROM_CART(state, payload) {
-    state.cart = state.cart.filter((el) => el.cart_id !== payload.cart_id);
+    state.cart = state.cart.filter((el) => el._id !== payload._id);
 
     localStorage.setItem(localStorageCartName, JSON.stringify(state.cart));
 

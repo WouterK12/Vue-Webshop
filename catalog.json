@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "name": "Product 1",
+      "description": "Very nice product",
+      "banner": "img/5.jpg",
+      "pics": [
+        "img/5.jpg",
+        "img/6.jpg"
+      ],
+      "price": 24.99,
+      "stock": 10,
+      "updatedAt": 1671291295059
+    },
+    {
+      "name": "Product 2",
+      "description": "The best product",
+      "banner": "img/5.jpg",
+      "pics": [
+        "img/5.jpg",
+        "img/6.jpg"
+      ],
+      "price": 16,
+      "stock": 15,
+      "updatedAt": 1671291295060
+    }
+  ]
+}

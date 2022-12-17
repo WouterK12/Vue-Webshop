@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <title>{{config.SHOPNAME}}</title>
+    <title>{{config.shopname}}</title>
     <v-card flat class="mx-auto overflow-hidden" width="100%" height="100%">
       <Navbar />
       <v-content>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 import Footer from './components/Footer.vue';
 import Navbar from './components/Navbar.vue';
@@ -24,10 +24,9 @@ export default {
   name: 'App',
   computed: {
     ...mapState(['config']),
-    ...mapGetters(['getCartItems']),
   },
-  created() {
-    this.$store.commit('INITIALIZE_CART', this.getCartItems());
+  beforeCreate() {
+    this.$store.dispatch('initialize')
   },
   data: () => ({
     fab: false
@@ -49,5 +48,4 @@ export default {
 <style>
 @import "./assets/styles/style.css";
 @import "./assets/styles/global.css";
-@import "./assets/styles/colors.css";
 </style>

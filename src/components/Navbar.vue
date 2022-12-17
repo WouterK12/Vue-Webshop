@@ -5,8 +5,8 @@
         <v-col>
           <autocomplete
             :search="search"
-            :placeholder="searchActive? 'Search for an item' : ''"
-            aria-label="Search for an item"
+            :placeholder="searchActive? 'Search for a product' : ''"
+            aria-label="Search for a product"
             :get-result-value="getResultValue"
             @submit="handleSubmit"
             @click="searchActive = !searchActive"
@@ -22,7 +22,7 @@
         <v-col>
           <v-toolbar-title>
             <router-link to="/">
-              <h3 class="text-center">{{config.SHOPNAME}}</h3>
+              <h3 class="text-center">{{config.shopname}}</h3>
             </router-link>
           </v-toolbar-title>
         </v-col>
@@ -33,7 +33,7 @@
                 <router-link to="/cart">
                   <v-badge left overlap color="#444">
                     <template v-slot:badge>
-                      <span v-if="cart.length > 0">{{ totalAmountInCart }}</span>
+                      <span v-if="cart && cart.length > 0">{{ totalAmountInCart }}</span>
                     </template>
                     <i style="font-size: 25px;" class="ion-ios-cart icons"></i>
                   </v-badge>
@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['config', 'links', 'cart', 'items']),
+    ...mapState(['config', 'cart', 'products']),
     totalAmountInCart(){
       return this.cart.map((i) => i.quantity).reduce((a, b) => a + b, 0);
     }
@@ -73,7 +73,7 @@ export default {
       if (input.length < 1) {
         return [];
       }
-      return this.items.filter(el => el.name.toLowerCase().includes(input.toLowerCase()));
+      return this.products.filter(el => el.name.toLowerCase().includes(input.toLowerCase()));
     },
     handleSubmit(result) {
       if (result && this.$route.params.productId !== result.id) {

@@ -1,12 +1,16 @@
 {
-  "SHOPNAME": "Shop",
-  "DOMAIN": "vue-webshop.wouterk12.com",
-  "CURRENCY": "EUR",
-  "CURRENCY_SYMBOL": "€",
-  "SHIPPING_COSTS": 6.75,
-  "PAYPAL_MERCHANT_EMAIL": "merchant@example.com",
-  "PAYPAL_WEB_EXPERIENCE": {
-    "NAME": "Vue-Webshop-Experience",
-    "LOGO_IMAGE": "https://vue-webshop.wouterk12.com/img/logo.jpg"
+  "shopname": "Shop",
+  "domain": "vue-webshop.wouterk12.com",
+  "metadata": {
+    "title": "Products",
+    "description": "Here you can find awesome products"
+  },
+  "currency": "EUR",
+  "currency_symbol": "€",
+  "shipping_costs": 6.75,
+  "paypal_merchant_email": "merchant@example.com",
+  "paypal_web_experience": {
+    "name": "Vue-Webshop-Experience",
+    "logo_image": "https://vue-webshop.wouterk12.com/img/logo.jpg"
   }
 }

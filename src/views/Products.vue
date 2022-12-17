@@ -3,8 +3,8 @@
     <div class="ptb-90">
       <div class="container">
         <div class="area-title text-center">
-          <h2>{{page.name}}</h2>
-          <p>{{page.description}}</p>
+          <h2>{{config.metadata.title}}</h2>
+          <p>{{config.metadata.description}}</p>
         </div>
       </div>
       <Catalog />
@@ -13,16 +13,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 import Catalog from '../components/Catalog.vue';
 
 export default {
   computed: {
-    ...mapGetters(['getPageInfoByName']),
-    page() {
-      return this.getPageInfoByName(this.$route.name);
-    }
+    ...mapState(['config']),
   },
   components: { Catalog }
 };

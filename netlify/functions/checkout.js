@@ -1,26 +1,43 @@
 // NETLIFY SERVERLESS FUNCTION
 import fetch from "node-fetch";
 import config from "../../config.json";
+import mongoose from "mongoose";
+import Product from "../../models/product";
+import utils from "../../src/utils/calculator";
 
 export const handler = async (event, context) => {
   const cart = JSON.parse(event.body);
+
+  if (!cart || !cart.length) {
+    return {
+      statusCode: 400,
+      body: "Cart cannot be empty!",
+    };
+  }
 
   // Netlify environment variables
   const clientId = process.env.PAYPAL_CLIENT_ID;
   const secret = process.env.PAYPAL_SECRET;
   const isProductionMode = process.env.PAYPAL_PRODUCTION_MODE;
+  const connectionString = process.env.MONGODB_CONNECTION_STRING;
   //
 
-  if (!clientId || !secret) {
+  if (!clientId || !secret || !connectionString) {
     return {
       statusCode: 400,
-      body: "'PAYPAL_CLIENT_ID' and 'PAYPAL_SECRET' are required environment variables! (Set them in Netlify)",
+      body:
+        "'PAYPAL_CLIENT_ID', 'PAYPAL_SECRET' and 'MONGODB_CONNECTION_STRING' are required environment variables! (Set them in Netlify)",
     };
   }
 
-  // prettier-ignore
-  const Base64 = {_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
-  const authenticationHeader = Base64.encode(`${clientId}:${secret}`);
+  try {
+    checkProductsValidity(connectionString, cart);
+  } catch (err) {
+    console.error(err);
+    return { statusCode: 400, body: err };
+  }
+
+  const authenticationHeader = "Basic " + Buffer.from(`${clientId}:${secret}`).toString("base64");
   const paypalUrl = isProductionMode ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
 
   let existingExperience = await getExistingExperience(authenticationHeader, paypalUrl);
@@ -34,7 +51,7 @@ export const handler = async (event, context) => {
   const paymentResponse = await fetch(`${paypalUrl}/v1/payments/payment`, {
     method: "POST",
     headers: {
-      Authorization: `Basic ${authenticationHeader}`,
+      Authorization: authenticationHeader,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payment),
@@ -56,24 +73,41 @@ export const handler = async (event, context) => {
   };
 };
 
+async function checkProductsValidity(connectionString, cart) {
+  mongoose.set("strictQuery", false);
+  mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  mongoose.connection.once("open", () => console.log("Connected to MongoDB database"));
+
+  const productsInDb = await Product.find({});
+
+  cart.forEach((cartProduct) => {
+    const productInCatalog = productsInDb.find((p) => p._id == cartProduct._id);
+    if (!productInCatalog) throw "Cart contains products that are no longer in the catalog";
+    if (productInCatalog.stock < cartProduct.quantity) throw "Cart contains products that are out of stock";
+  });
+}
+
 async function getExistingExperience(authenticationHeader, paypalUrl) {
   const experiencesResponse = await fetch(`${paypalUrl}/v1/payment-experience/web-profiles`, {
     method: "GET",
     headers: {
-      Authorization: `Basic ${authenticationHeader}`,
+      Authorization: authenticationHeader,
       "Content-Type": "application/json",
     },
   });
   const experiencesData = await experiencesResponse.json();
 
-  return experiencesData.find((e) => e.name == config.PAYPAL_WEB_EXPERIENCE.NAME);
+  return experiencesData.find((e) => e.name == config.paypal_web_experience.name);
 }
 
 async function createNewExperience(authenticationHeader, paypalUrl) {
   const newExperience = {
-    name: config.PAYPAL_WEB_EXPERIENCE.NAME,
+    name: config.paypal_web_experience.name,
     presentation: {
-      logo_image: config.PAYPAL_WEB_EXPERIENCE.LOGO_IMAGE,
+      logo_image: config.paypal_web_experience.logo_image,
     },
     input_fields: {
       address_override: 0,
@@ -94,9 +128,7 @@ async function createNewExperience(authenticationHeader, paypalUrl) {
 }
 
 function createPaymentModel(cart, existingExperience) {
-  const temp = cart.reduce((a, b) => a + (b.totalPrice || 0), 0);
-  const subTotal = Math.round(temp * 100) / 100;
-  const cartTotal = Math.round((subTotal + config.SHIPPING_COSTS) * 100) / 100;
+  const cartTotal = utils.getCartTotal(cart);
 
   return {
     intent: "authorize",
@@ -107,33 +139,33 @@ function createPaymentModel(cart, existingExperience) {
     transactions: [
       {
         amount: {
-          currency: config.CURRENCY,
-          total: cartTotal,
+          currency: config.currency,
+          total: cartTotal.total,
           details: {
-            shipping: config.SHIPPING_COSTS,
-            subtotal: subTotal,
+            shipping: config.shipping_costs,
+            subtotal: cartTotal.subTotal,
           },
         },
         payee: {
-          email: config.PAYPAL_MERCHANT_EMAIL,
+          email: config.paypal_merchant_email,
         },
-        description: `Your purchase at ${config.DOMAIN}`,
+        description: `Your purchase at ${config.domain}`,
         item_list: {
           items: cart.map((p) => {
             return {
               name: p.name,
               quantity: p.quantity,
               price: p.price,
-              sku: p.id,
-              currency: config.CURRENCY,
+              sku: p._id,
+              currency: config.currency,
             };
           }),
         },
       },
     ],
     redirect_urls: {
-      return_url: `https://${config.DOMAIN}/success`,
-      cancel_url: `https://${config.DOMAIN}/cancelled`,
+      return_url: `https://${config.domain}/success`,
+      cancel_url: `https://${config.domain}/cancelled`,
     },
   };
 }

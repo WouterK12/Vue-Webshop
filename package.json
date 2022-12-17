@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "fetch-db": "node catalogManager.js fetch",
+    "push-db": "node catalogManager.js push"
   },
   "dependencies": {
     "@trevoreyre/autocomplete-vue": "^2.0.2",
     "buefy": "^0.8.6",
     "core-js": "^2.6.10",
     "hamburgers": "^1.1.3",
+    "mongoose": "^6.8.0",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
     "vuetify": "^2.1.7",
@@ -18,7 +21,8 @@
   },
   "devDependencies": {
     "@vue/cli-service": "^3.12.1",
-    "netlify-cli": "^12.2.9",
+    "dotenv": "^16.0.3",
+    "netlify-cli": "^12.4.0",
     "node-fetch": "^3.3.0",
     "sass": "^1.23.1",
     "sass-loader": "^7.3.1",
