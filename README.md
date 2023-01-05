@@ -3,6 +3,8 @@
 A fork of [Vuewebshop by WDaan](https://github.com/WDaan/Vuewebshop)  
 For a comprehensive README on this project, see the original project.
 
+![Home](https://github.com/WouterK12/Vue-Webshop/blob/master/screenshots/home.png?raw=true)
+
 ## Updated and new features
 
 - Individual images for products
